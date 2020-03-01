@@ -1,6 +1,11 @@
 import { getLaunchOptions } from '../src/launch';
 
 describe('getLaunchOptions', () => {
+  it('chooses a browser based on the name', () => {
+    const { browserName } = getLaunchOptions({ browserName: 'webkit' });
+    expect(browserName).toEqual('webkit');
+  });
+
   it('chooses a browser based on the env variable', () => {
     process.env.QAW_BROWSER = 'firefox';
 

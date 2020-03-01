@@ -9,7 +9,7 @@ const debug = Debug('playwright-utils:launch');
 type BrowserName = 'chromium' | 'firefox' | 'webkit';
 
 export type LaunchOptions = PlaywrightLaunchOptions & {
-  browser?: BrowserName;
+  browserName?: BrowserName;
 };
 
 const parseBool = (value: string | undefined) => {
@@ -30,7 +30,8 @@ export const getLaunchOptions = (options: LaunchOptions = {}) => {
     launchOptions.headless = parseBool(headlessEnv);
   }
 
-  const browserName = parseBrowserName(process.env.QAW_BROWSER);
+  const browserName =
+    options.browserName || parseBrowserName(process.env.QAW_BROWSER);
 
   if (isNullOrUndefined(options.args)) {
     let args: string[] = [];
