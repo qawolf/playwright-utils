@@ -1,6 +1,6 @@
 import * as Debug from 'debug';
 import { platform } from 'os';
-import playwright, { Browser } from 'playwright-core';
+import * as playwright from 'playwright-core';
 import { LaunchOptions as PlaywrightLaunchOptions } from 'playwright-core/lib/server/browserType';
 import { isNullOrUndefined } from 'util';
 
@@ -53,7 +53,9 @@ export const getLaunchOptions = (options: LaunchOptions = {}) => {
   return { ...launchOptions, browserName };
 };
 
-export const launch = async (options: LaunchOptions = {}): Promise<Browser> => {
+export const launch = async (
+  options: LaunchOptions = {},
+): Promise<playwright.Browser> => {
   const launchOptions = getLaunchOptions(options);
   debug('launch %j', launchOptions);
 
