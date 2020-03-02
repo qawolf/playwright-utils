@@ -1,4 +1,4 @@
-import * as Debug from 'debug';
+import Debug from 'debug';
 import { platform } from 'os';
 import * as playwright from 'playwright-core';
 import { LaunchOptions as PlaywrightLaunchOptions } from 'playwright-core/lib/server/browserType';
