@@ -4,19 +4,19 @@ import { BrowserContext, Page } from 'playwright-core';
 const debug = Debug('playwright-utils:indexPages');
 
 type IndexedBrowserContext = BrowserContext & {
-  _putils_indexed: boolean;
+  _putilsIndexed: boolean;
 };
 
 export type IndexedPage = Page & {
   createdIndex: number;
 };
 
-export const indexPages = async (context: BrowserContext) => {
+export const indexPages = async (context: BrowserContext): Promise<void> => {
   /**
    * Set page.createdIndex on pages.
    */
-  if ((context as IndexedBrowserContext)._putils_indexed) return;
-  (context as IndexedBrowserContext)._putils_indexed = true;
+  if ((context as IndexedBrowserContext)._putilsIndexed) return;
+  (context as IndexedBrowserContext)._putilsIndexed = true;
 
   let index = 0;
 
@@ -30,7 +30,7 @@ export const indexPages = async (context: BrowserContext) => {
     (pages[0] as IndexedPage).createdIndex = index++;
   }
 
-  // TODO remove cast after PR is merged
+  // XXX remove cast after playwright fixes types
   (context as any).on('page', async event => {
     debug(`index created page ${index}`);
     const page: IndexedPage = await event.page();

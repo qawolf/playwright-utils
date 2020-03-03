@@ -12,17 +12,19 @@ export type LaunchOptions = PlaywrightLaunchOptions & {
   browserName?: BrowserName;
 };
 
-const parseBool = (value: string | undefined) => {
+const parseBool = (value: string | undefined): boolean => {
   const lowerCaseValue = (value || '').toLowerCase();
   return ['1', 't', 'true'].includes(lowerCaseValue);
 };
 
-const parseBrowserName = (name?: string): string => {
+const parseBrowserName = (name?: string): BrowserName => {
   if (name === 'firefox' || name === 'webkit') return name;
   return 'chromium';
 };
 
-export const getLaunchOptions = (options: LaunchOptions = {}) => {
+export const getLaunchOptions = (
+  options: LaunchOptions = {},
+): LaunchOptions & { browserName: BrowserName } => {
   const launchOptions = { ...options };
 
   const headlessEnv = process.env.QAW_HEADLESS;
@@ -30,8 +32,9 @@ export const getLaunchOptions = (options: LaunchOptions = {}) => {
     launchOptions.headless = parseBool(headlessEnv);
   }
 
-  const browserName =
-    options.browserName || parseBrowserName(process.env.QAW_BROWSER);
+  const browserName = parseBrowserName(
+    options.browserName || process.env.QAW_BROWSER,
+  );
 
   if (isNullOrUndefined(options.args)) {
     let args: string[] = [];

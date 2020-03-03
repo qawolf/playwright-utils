@@ -1,5 +1,14 @@
 import { Page } from 'playwright-core';
 
-export const initEvaluateScript = (page: Page, script: string | Function) =>
-  // TODO fix cast
-  Promise.all([page.addInitScript(script), page.evaluate(script as any)]);
+export const initEvaluateScript = async (
+  page: Page,
+  script: string | Function,
+): Promise<unknown> => {
+  const [, result] = await Promise.all([
+    page.addInitScript(script),
+    // TODO fix PageFunction cast
+    page.evaluate(script as any),
+  ]);
+
+  return result;
+};
