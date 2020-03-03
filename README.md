@@ -13,13 +13,10 @@ const { forEachPage, initEvaluateScript, launch } = require('playwright-utils');
 
   const context = await browser.newContext();
 
-   // Run for every existing and new page
-  await forEachPage(context, (page: Page) =>
-    // Call page.addInitScript and page.evaluate
-    initEvaluateScript(page, () => {
-      // This will run for every existing page, every new page, now and every time the page is navigated
-    });
-  );
+  // Run for every existing and new page
+  await forEachPage(context, async page => {
+    await initEvaluateScript(page, MY_SCRIPT);
+  });
 
   await browser.close();
 })();
@@ -35,7 +32,7 @@ Run a function for every existing and new page.
 
 ```js
 await forEachPage(context, (page: Page) => {
-  // code to for each page here
+  // code to run for each page here
 });
 ```
 
