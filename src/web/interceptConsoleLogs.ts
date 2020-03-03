@@ -1,6 +1,6 @@
 import { getXpath } from '../utils';
 
-type LogCallback = (level: string, message: string) => void;
+export type LogCallback = (level: string, message: string) => void;
 
 const LOG_LEVELS = ['debug', 'error', 'info', 'log', 'warn'];
 
@@ -25,7 +25,6 @@ export const formatArgument = (argument: any): string => {
   }
 };
 
-// TODO wrapper that calls addInitScript that adds that library
 export const interceptConsoleLogs = (callback: LogCallback): void => {
   if ((window as any).pwInterceptConsoleLogs) return;
   (window as any).pwInterceptConsoleLogs = true;
