@@ -1,6 +1,6 @@
 import Debug from 'debug';
 import { platform } from 'os';
-import * as playwright from 'playwright-core';
+import * as playwright from 'playwright';
 import { LaunchOptions as PlaywrightLaunchOptions } from 'playwright-core/lib/server/browserType';
 import { isNullOrUndefined } from 'util';
 
