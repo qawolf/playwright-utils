@@ -27,7 +27,7 @@ const interceptConsoleLogs = (): Promise<void> => {
   return page.evaluate(() => {
     const playwrightutils: PlaywrightUtilsWeb = (window as any).playwrightutils;
 
-    return playwrightutils.interceptConsoleLogs((window as any).callback);
+    return playwrightutils.interceptConsoleLogs('callback');
   });
 };
 

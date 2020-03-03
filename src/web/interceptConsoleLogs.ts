@@ -25,7 +25,7 @@ export const formatArgument = (argument: any): string => {
   }
 };
 
-export const interceptConsoleLogs = (callback: LogCallback): void => {
+export const interceptConsoleLogs = (callbackName: string): void => {
   if ((window as any).pwInterceptConsoleLogs) return;
   (window as any).pwInterceptConsoleLogs = true;
 
@@ -39,7 +39,10 @@ export const interceptConsoleLogs = (callback: LogCallback): void => {
 
       browserLog(...args);
 
-      callback(level, message);
+      const callback = window[callbackName];
+      if (callback) {
+        callback(level, message);
+      }
     };
   });
 };
