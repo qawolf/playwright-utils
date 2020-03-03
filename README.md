@@ -25,23 +25,17 @@ const { forEachPage, initEvaluateScript, launch } = require('playwright-utils');
 })();
 ```
 
-#### playwright-utils.launch([options])
-
-- `options` <[Object]> Playwright [browserType.launch] options and these additional fields:
-  - `browserName` <[string]> The browser to launch: "chromium", "firefox" or "webkit".
-- returns: <[Promise]<[Browser]>> Promise which resolves to browser instance.
-
-Launch the browser based on environment variables. Defaults to `QAW_BROWSER=chromium` and `QAW_HEADLESS=true`.
-
 #### playwright-utils.forEachPage(context, pageFunction)
 
 - `context` <[BrowserContext]> The browser context.
 - `pageFunction` <[function]> Callback function called for every existing and new page.
 - returns: <[Promise]>
 
+Run a function for every existing and new page.
+
 ```js
 await forEachPage(context, (page: Page) => {
-  // Run for every existing and new page
+  // code to for each page here
 });
 ```
 
@@ -52,6 +46,14 @@ await forEachPage(context, (page: Page) => {
 - returns: <[Promise]>
 
 Call [page.addInitScript] and [page.evaluate] to run the script now and every time the page is navigated.
+
+#### playwright-utils.launch([options])
+
+- `options` <[Object]> Playwright [browserType.launch] options and these additional fields:
+  - `browserName` <[string]> The browser to launch: "chromium", "firefox" or "webkit".
+- returns: <[Promise]<[Browser]>> Promise which resolves to browser instance.
+
+Launch the browser based on environment variables. Defaults to `QAW_BROWSER=chromium` and `QAW_HEADLESS=true`.
 
 [browser]: https://github.com/microsoft/playwright/blob/master/docs/api.md#class-browser 'browser'
 [browsercontext]: https://github.com/microsoft/playwright/blob/master/docs/api.md#class-browsercontext 'BrowserContext'
