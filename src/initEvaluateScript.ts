@@ -1,15 +1,28 @@
 import { Page } from 'playwright-core';
 
+const NAVIGATION_ERRORS = [
+  'Execution context was destroyed',
+  'Inspected target navigated or closed',
+];
+
 export const initEvaluateScript = async (
   page: Page,
   script: string | Function,
   ...args: any[]
-): Promise<unknown> => {
-  const [, result] = await Promise.all([
-    page.addInitScript(script, ...args),
-    // TODO fix PageFunction cast
-    page.evaluate(script as any, ...args),
-  ]);
+): Promise<any> => {
+  await page.addInitScript(script, ...args);
 
-  return result;
+  try {
+    const result = await page.evaluate(script as any, ...args);
+    return result;
+  } catch (error) {
+    // ignore errors caused by navigation
+    // since addInitScript will call the script again
+    const shouldIgnore = !!NAVIGATION_ERRORS.find(message =>
+      error.message.includes(message),
+    );
+    if (shouldIgnore) return;
+
+    throw error;
+  }
 };
