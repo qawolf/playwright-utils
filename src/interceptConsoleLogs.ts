@@ -11,4 +11,3 @@ export const interceptConsoleLogs = (
 ): Promise<void> => {
   return page.addInitScript(() => interceptConsoleLogsWeb(callback));
 };
-// TODO wrapper that calls addInitScript that adds that library

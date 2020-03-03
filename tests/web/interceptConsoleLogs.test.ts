@@ -1,9 +1,9 @@
 import { Browser, Page } from 'playwright';
-import { launch } from '../src/launch';
-import { PlaywrightUtilsWeb } from '../src/web';
-import { WEB_SCRIPT } from '../src/webScript';
+import { launch } from '../../src/launch';
+import { PlaywrightUtilsWeb } from '../../src/web';
+import { WEB_SCRIPT } from '../../src/webScript';
 
-import { initEvaluateScript } from '../src/initEvaluateScript';
+import { initEvaluateScript } from '../../src/initEvaluateScript';
 
 let page: Page;
 
