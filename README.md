@@ -1,5 +1,7 @@
 # playwright-utils
 
+[![npm version](https://badge.fury.io/js/playwright-utils.svg)](https://badge.fury.io/js/playwright-utils)
+
 🛠️ Utilities for playwright.
 
 ```js
