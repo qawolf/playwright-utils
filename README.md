@@ -57,7 +57,7 @@ const callback = (logLevel, message) => {
   console.log(`Console logged ${message} at log level ${logLevel}`);
 };
 
-await interceptConsoleLogs({ callback, page });
+await interceptConsoleLogs(page, callback);
 ```
 
 #### playwright-utils.launch([options])
