@@ -1,4 +1,4 @@
-import { Browser, Page } from 'playwright';
+import { Browser, Page } from 'playwright-core';
 import { launch } from '../src/launch';
 import { interceptConsoleLogs } from '../src/interceptConsoleLogs';
 

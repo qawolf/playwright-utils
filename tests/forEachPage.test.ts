@@ -1,4 +1,4 @@
-import { Page } from 'playwright';
+import { Page } from 'playwright-core';
 import { launch } from '../src/launch';
 import { forEachPage } from '../src/forEachPage';
 
@@ -15,6 +15,9 @@ it('runs for existing and new pages', async () => {
   });
 
   const newPage = await context.newPage();
+
+  // give time for page event to fire
+  await new Promise(resolve => setTimeout(resolve, 0));
 
   const result = await Promise.all(
     [existingPage, newPage].map(page =>
