@@ -39,6 +39,7 @@ export const patchConsole = (): void => {
 
       browserLog(...args);
 
+      // playwright is currently using logs as its message transport. prevent infinite loop.
       if (message.includes('__playwright')) return;
 
       const callbacks = (window as any).pwutilsLogCallbacks || [];
