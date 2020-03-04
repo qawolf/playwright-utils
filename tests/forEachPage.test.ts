@@ -16,6 +16,9 @@ it('runs for existing and new pages', async () => {
 
   const newPage = await context.newPage();
 
+  // give time for page event to fire
+  await new Promise(resolve => setTimeout(resolve, 0));
+
   const result = await Promise.all(
     [existingPage, newPage].map(page =>
       page.evaluate(() => (window as any).index),
