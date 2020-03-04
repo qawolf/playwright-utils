@@ -68,6 +68,17 @@ await interceptConsoleLogs(page, callback);
 
 Launch the browser based on environment variables. Defaults to `QAW_BROWSER=chromium` and `QAW_HEADLESS=true`.
 
+#### playwright-utils.repl([context])
+
+- `context` <[Object]> Keys/values are added to the repl context.
+- returns: <[Promise]<[void]>> Promise that resolves after the REPL is closed.
+
+Open a Node REPL.
+
+```js
+await repl({ page });
+```
+
 #### playwright-utils.saveConsoleLogs(page, savePath)
 
 - `page` <[Page]> Save console logs on this page.
