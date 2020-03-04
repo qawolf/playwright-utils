@@ -1,4 +1,4 @@
-import { Browser, BrowserContext } from 'playwright';
+import { Browser, BrowserContext } from 'playwright-core';
 import { launch } from '../src/launch';
 import { indexPages, IndexedPage } from '../src/indexPages';
 
@@ -23,6 +23,10 @@ describe('indexPages', () => {
     await indexPages(context);
     const pageOne = await context.newPage();
     const pageTwo = await context.newPage();
+
+    // give time for page event to fire
+    await new Promise(resolve => setTimeout(resolve, 0));
+
     expect((pageOne as IndexedPage).createdIndex).toEqual(0);
     expect((pageTwo as IndexedPage).createdIndex).toEqual(1);
   });

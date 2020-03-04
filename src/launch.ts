@@ -1,5 +1,6 @@
 import Debug from 'debug';
 import { platform } from 'os';
+// need to launch from playwright not playwright-core since the browsers are different
 import * as playwright from 'playwright';
 import { LaunchOptions as PlaywrightLaunchOptions } from 'playwright-core/lib/server/browserType';
 import { isNullOrUndefined } from 'util';

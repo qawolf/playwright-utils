@@ -28,7 +28,7 @@
     "version": "npm run clean && npm run build"
   },
   "peerDependencies": {
-    "playwright-core": "next"
+    "playwright": "next"
   },
   "dependencies": {
     "debug": "*",
@@ -46,7 +46,7 @@
     "eslint-plugin-jest": "~23.7.0",
     "jest": "~25.1.0",
     "np": "^6.2.0",
-    "playwright": "^0.11.1-next.1583216591380",
+    "playwright": "next",
     "prettier": "~1.19.1",
     "rimraf": "~3.0.2",
     "rollup": "^1.32.0",
