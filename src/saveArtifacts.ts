@@ -16,7 +16,7 @@ export const saveArtifacts = (
   let pageCount = 0;
 
   return forEachPage(context, async page => {
-    let pageIndex = pageCount++;
+    const pageIndex = pageCount++;
     debug(`save artifacts for page ${pageIndex}`);
 
     try {

@@ -20,5 +20,5 @@ export const saveConsoleLogs = async (
     appendFileSync(savePath, line);
   };
 
-  await interceptConsoleLogs(page, callback);
+  return interceptConsoleLogs(page, callback);
 };

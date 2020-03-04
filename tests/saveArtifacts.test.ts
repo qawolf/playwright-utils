@@ -33,7 +33,7 @@ describe('saveArtifacts', () => {
 
     await context.close();
 
-    const testFn = () =>
+    const testFn = (): Promise<[void, void]> =>
       Promise.all([
         waitUntil(() => existsSync(join(saveDir, 'video_0.mp4'))),
         waitUntil(() => existsSync(join(saveDir, 'video_1.mp4'))),

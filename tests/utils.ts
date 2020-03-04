@@ -10,6 +10,7 @@ export const waitUntil = (
   conditionFn: () => Promise<boolean> | boolean,
 ): Promise<void> => {
   return new Promise((resolve, reject) => {
+    // eslint-disable-next-line prefer-const
     let intervalId: NodeJS.Timeout, timeoutId: NodeJS.Timeout;
 
     const done = once((success: boolean) => {
