@@ -2,6 +2,7 @@ export { forEachPage } from './forEachPage';
 export { initEvaluateScript } from './initEvaluateScript';
 export { interceptConsoleLogs } from './interceptConsoleLogs';
 export { getLaunchOptions, launch } from './launch';
+export { repl, ReplContext } from './repl';
 export { saveConsoleLogs } from './saveConsoleLogs';
 
 // for internal use
