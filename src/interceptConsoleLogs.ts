@@ -9,7 +9,7 @@ interface InterceptConsoleLogsArgs {
   page: Page;
 }
 
-let logCallbackId: number = 0;
+let logCallbackId = 0;
 
 export const interceptConsoleLogs = async ({
   callback,

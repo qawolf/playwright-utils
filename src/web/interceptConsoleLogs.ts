@@ -25,14 +25,14 @@ export const formatArgument = (argument: any): string => {
   }
 };
 
-export const patchConsole = () => {
+export const patchConsole = (): void => {
   if ((window as any).pwutilsPatchedConsole) return;
   (window as any).pwutilsPatchedConsole = true;
 
   LOG_LEVELS.forEach((level: keyof Console) => {
     const browserLog = console[level].bind(console);
 
-    console[level] = (...args: any) => {
+    console[level] = (...args: any): void => {
       const message: string = args
         .map((arg: any) => formatArgument(arg))
         .join(' ');

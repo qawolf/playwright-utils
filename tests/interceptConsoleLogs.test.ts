@@ -12,7 +12,7 @@ describe('interceptConsoleLogs', () => {
 
   afterAll(() => browser.close());
 
-  it.only('calls callback on console log', async () => {
+  it('calls callback on console log', async () => {
     page = await browser.newPage();
 
     const callback = jest.fn();
@@ -28,6 +28,4 @@ describe('interceptConsoleLogs', () => {
 
     await page.close();
   });
-
-  it('allows name of callback to be specified', async () => {});
 });
