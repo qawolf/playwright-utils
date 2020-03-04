@@ -9,6 +9,7 @@ jobs:
     strategy:
       matrix:
         node-version: [10.x]
+        browser: [chromium, firefox, webkit]
 
     steps:
       - uses: actions/checkout@v2
@@ -25,6 +26,4 @@ jobs:
       - run: npm install
       - run: npm run lint
       - run: npm run build
-      - run: npm test
-      - run: QAW_BROWSER=firefox npm test
-      - run: QAW_BROWSER=webkit npm test
+      - run: QAW_BROWSER=${{ matrix.browser }} npm test
