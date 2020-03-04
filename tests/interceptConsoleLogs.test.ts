@@ -14,13 +14,9 @@ describe('interceptConsoleLogs', () => {
 
   it('calls callback on console log', async () => {
     page = await browser.newPage();
-
     const callback = jest.fn();
 
-    await interceptConsoleLogs({
-      callback,
-      page,
-    });
+    await interceptConsoleLogs(page, callback);
 
     await page.evaluate(() => console.log('hello'));
 
