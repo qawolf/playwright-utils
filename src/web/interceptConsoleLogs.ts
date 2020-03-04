@@ -39,6 +39,8 @@ export const patchConsole = (): void => {
 
       browserLog(...args);
 
+      if (message.includes('__playwright')) return;
+
       const callbacks = (window as any).pwutilsLogCallbacks || [];
       callbacks.forEach((callback: LogCallback) => {
         callback(level, message);

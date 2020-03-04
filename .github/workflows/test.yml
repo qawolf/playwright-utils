@@ -23,5 +23,4 @@ jobs:
       - run: npm run build
       - run: npm test
       - run: QAW_BROWSER=firefox npm test
-      # TODO
-      # - run: QAW_BROWSER=webkit npm test
+      - run: QAW_BROWSER=webkit npm test
