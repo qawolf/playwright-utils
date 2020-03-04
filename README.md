@@ -70,12 +70,13 @@ Launch the browser based on environment variables. Defaults to `QAW_BROWSER=chro
 
 #### playwright-utils.repl([context])
 
-- `context` <[Object]> Keys/values are added to the repl context.
+- `context` <[Object]> Each key of this object is set on the repl.context so it can be accessed.
 - returns: <[Promise]<[void]>> Promise that resolves after the REPL is closed.
 
 Open a Node REPL.
 
 ```js
+// pass a page so it can be accessed in the REPL
 await repl({ page });
 ```
 
