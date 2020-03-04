@@ -1,4 +1,4 @@
-import { Page } from 'playwright';
+import { Page } from 'playwright-core';
 import { launch } from '../src/launch';
 import { forEachPage } from '../src/forEachPage';
 
