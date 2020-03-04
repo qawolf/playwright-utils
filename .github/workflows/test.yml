@@ -22,3 +22,6 @@ jobs:
       - run: npm run lint
       - run: npm run build
       - run: npm test
+      # TODO fix tests on Firefox and WebKit
+      # - run: QAW_BROWSER=firefox npm test
+      # - run: QAW_BROWSER=webkit npm test

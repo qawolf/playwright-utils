@@ -13,7 +13,12 @@ afterAll(() => browser.close());
 it('ignores errors caused by navigation', async () => {
   const page = await browser.newPage();
   const navigation = page.goto('https://example.org');
-  await initEvaluateScript(page, () => console.log('noop'));
+
+  // this will throw an error if navigation errors not ignored
+  const testFn = (): Promise<void> =>
+    initEvaluateScript(page, () => console.log('noop'));
+  await expect(testFn()).resolves.not.toThrowError();
+
   await navigation;
 });
 

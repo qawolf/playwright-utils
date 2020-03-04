@@ -19,5 +19,7 @@
     "prettier",
     "prettier/@typescript-eslint"
   ],
-  "rules": {}
+  "rules": {
+    "@typescript-eslint/no-explicit-any": 0
+  }
 }

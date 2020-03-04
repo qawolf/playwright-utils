@@ -44,6 +44,23 @@ await forEachPage(context, (page: Page) => {
 
 Call [page.addInitScript] and [page.evaluate] to run the script now and every time the page is navigated.
 
+#### playwright-utils.interceptConsoleLogs([options])
+
+- `options` <[Object]>
+  - `callback` <[Function]> Function to be called when console logs in the browser. Takes as arguments the log level and the message.
+  - `page` <[Page]> Intercept console logs on this page.
+
+Call a specified function when console logs in the browser.
+
+```js
+const callback = (logLevel, message) => {
+  // logLevel is one of 'debug', 'error', 'info', 'log', and 'warn'
+  console.log(`Console logged ${message} at log level ${logLevel}`);
+};
+
+await interceptConsoleLogs({ callback, page });
+```
+
 #### playwright-utils.launch([options])
 
 - `options` <[Object]> Playwright [browserType.launch] options and these additional fields:
