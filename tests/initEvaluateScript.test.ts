@@ -22,6 +22,15 @@ it('ignores errors caused by navigation', async () => {
   await navigation;
 });
 
+it('does not run when page is closed', async () => {
+  const page = await browser.newPage();
+  await page.close();
+
+  const testFn = (): Promise<void> =>
+    initEvaluateScript(page, () => console.log('noop'));
+  await expect(testFn()).resolves.not.toThrowError();
+});
+
 it('runs now and on navigation', async () => {
   const page = await browser.newPage();
 

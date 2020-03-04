@@ -10,6 +10,8 @@ export const initEvaluateScript = async (
   script: string | Function,
   ...args: any[]
 ): Promise<any> => {
+  if (page.isClosed()) return;
+
   await page.addInitScript(script, ...args);
 
   try {

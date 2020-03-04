@@ -94,7 +94,7 @@ npm i ffmpeg-static
 ```
 
 ```js
-await saveArtifacts(context, 'artifacts');
+await saveArtifacts(context, '/artifacts');
 ```
 
 #### playwright-utils.saveConsoleLogs(page, savePath)
