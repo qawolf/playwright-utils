@@ -4,17 +4,12 @@ import { PlaywrightUtilsWeb } from './web';
 import { WEB_SCRIPT } from './webScript';
 import { LogCallback } from './web/interceptConsoleLogs';
 
-interface InterceptConsoleLogsArgs {
-  callback: LogCallback;
-  page: Page;
-}
-
 let logCallbackId = 0;
 
-export const interceptConsoleLogs = async ({
-  callback,
-  page,
-}: InterceptConsoleLogsArgs): Promise<void> => {
+export const interceptConsoleLogs = async (
+  page: Page,
+  callback: LogCallback,
+): Promise<void> => {
   await initEvaluateScript(page, WEB_SCRIPT);
 
   const callbackName = `interceptLogs${logCallbackId++}`;

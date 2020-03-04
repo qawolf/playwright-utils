@@ -44,11 +44,10 @@ await forEachPage(context, (page: Page) => {
 
 Call [page.addInitScript] and [page.evaluate] to run the script now and every time the page is navigated.
 
-#### playwright-utils.interceptConsoleLogs([options])
+#### playwright-utils.interceptConsoleLogs(page, callback)
 
-- `options` <[Object]>
-  - `callback` <[Function]> Function to be called when console logs in the browser. Takes as arguments the log level and the message.
-  - `page` <[Page]> Intercept console logs on this page.
+- `page` <[Page]> Intercept console logs on this page.
+- `callback` <[Function]> Function to be called when console logs in the browser. Takes as arguments the log level and the message.
 
 Call a specified function when console logs in the browser.
 
@@ -74,6 +73,7 @@ Launch the browser based on environment variables. Defaults to `QAW_BROWSER=chro
 [browsertype.launch]: https://github.com/microsoft/playwright/blob/master/docs/api.md#browsertypelaunchoptions 'browserType.launch'
 [function]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function 'Function'
 [object]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object 'Object'
+[page]: https://github.com/microsoft/playwright/blob/master/docs/api.md#class-page 'Page'
 [page.evaluate]: https://github.com/microsoft/playwright/blob/master/docs/api.md#pageevaluatepagefunction-args 'page.evaluate'
 [page.addinitscript]: https://github.com/microsoft/playwright/blob/master/docs/api.md#pageaddinitscriptscript-args 'page.addInitScript'
 [promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise 'Promise'
