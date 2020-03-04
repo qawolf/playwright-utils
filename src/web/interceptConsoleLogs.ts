@@ -48,6 +48,8 @@ export const patchConsole = (): void => {
 };
 
 export const interceptConsoleLogs = (callbackName: string): void => {
+  patchConsole();
+
   const callbacks = (window as any).pwutilsLogCallbacks || [];
   callbacks.push(window[callbackName]);
   (window as any).pwutilsLogCallbacks = callbacks;

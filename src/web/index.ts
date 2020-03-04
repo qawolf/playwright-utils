@@ -1,10 +1,4 @@
-import {
-  formatArgument,
-  interceptConsoleLogs,
-  patchConsole,
-} from './interceptConsoleLogs';
-
-patchConsole();
+import { formatArgument, interceptConsoleLogs } from './interceptConsoleLogs';
 
 const web = {
   formatArgument,
