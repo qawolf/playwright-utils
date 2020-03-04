@@ -68,6 +68,17 @@ await interceptConsoleLogs(page, callback);
 
 Launch the browser based on environment variables. Defaults to `QAW_BROWSER=chromium` and `QAW_HEADLESS=true`.
 
+#### playwright-utils.saveConsoleLogs(page, savePath)
+
+- `page` <[Page]> Save console logs on this page.
+- `savePath` <[string]> Path where console logs will be saved.
+
+Save console logs on a page to the specified file.
+
+```js
+await saveConsoleLogs(page, 'logs.txt');
+```
+
 [browser]: https://github.com/microsoft/playwright/blob/master/docs/api.md#class-browser 'browser'
 [browsercontext]: https://github.com/microsoft/playwright/blob/master/docs/api.md#class-browsercontext 'BrowserContext'
 [browsertype.launch]: https://github.com/microsoft/playwright/blob/master/docs/api.md#browsertypelaunchoptions 'browserType.launch'
