@@ -42,7 +42,7 @@ describe('saveArtifacts', () => {
     await expect(testFn()).resolves.not.toThrowError();
     // wait for video capture to finish closing
     await new Promise(resolve => setTimeout(resolve, 2000));
-  }, 10000); // increase timeout for Firefox and WebKit
+  });
 
   it('only saves console logs if ffmpeg not installed', async () => {
     jest.spyOn(playwrightVideo, 'getFfmpegPath').mockReturnValue(null);
