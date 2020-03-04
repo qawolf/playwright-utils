@@ -25,9 +25,9 @@ export const formatArgument = (argument: any): string => {
   }
 };
 
-export const interceptConsoleLogs = (callbackName: string): void => {
-  if ((window as any).pwInterceptConsoleLogs) return;
-  (window as any).pwInterceptConsoleLogs = true;
+export const patchConsole = () => {
+  if ((window as any).pwutilsPatchedConsole) return;
+  (window as any).pwutilsPatchedConsole = true;
 
   LOG_LEVELS.forEach((level: keyof Console) => {
     const browserLog = console[level].bind(console);
@@ -39,10 +39,16 @@ export const interceptConsoleLogs = (callbackName: string): void => {
 
       browserLog(...args);
 
-      const callback = window[callbackName];
-      if (callback) {
+      const callbacks = (window as any).pwutilsLogCallbacks || [];
+      callbacks.forEach((callback: LogCallback) => {
         callback(level, message);
-      }
+      });
     };
   });
+};
+
+export const interceptConsoleLogs = (callbackName: string): void => {
+  const callbacks = (window as any).pwutilsLogCallbacks || [];
+  callbacks.push(window[callbackName]);
+  (window as any).pwutilsLogCallbacks = callbacks;
 };

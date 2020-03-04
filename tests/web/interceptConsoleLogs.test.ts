@@ -10,41 +10,29 @@ let page: Page;
 const formatArgument = (arg: any, isSelector = false): Promise<any> => {
   return page.evaluate(
     (arg, isSelector) => {
-      const playwrightutils: PlaywrightUtilsWeb = (window as any)
-        .playwrightutils;
+      const web: PlaywrightUtilsWeb = (window as any).playwrightutils;
 
       if (isSelector) {
-        return playwrightutils.formatArgument(document.querySelector(arg));
+        return web.formatArgument(document.querySelector(arg));
       }
-      return playwrightutils.formatArgument(arg);
+      return web.formatArgument(arg);
     },
     arg,
     isSelector,
   );
 };
 
-const interceptConsoleLogs = (): Promise<void> => {
-  return page.evaluate(() => {
-    const playwrightutils: PlaywrightUtilsWeb = (window as any).playwrightutils;
-
-    return playwrightutils.interceptConsoleLogs('callback');
-  });
-};
-
 describe('interceptConsoleLogs', () => {
   let browser: Browser;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     browser = await launch();
     page = await browser.newPage();
 
     await initEvaluateScript(page, WEB_SCRIPT);
   });
 
-  afterEach(async () => {
-    await page.close();
-    await browser.close();
-  });
+  afterAll(() => browser.close());
 
   describe('formatArgument', () => {
     it('returns argument if argument is a string', async () => {
@@ -67,21 +55,6 @@ describe('interceptConsoleLogs', () => {
     it('returns argument as string if possible', async () => {
       const result = await formatArgument(11);
       expect(result).toBe('11');
-    });
-  });
-
-  describe('interceptConsoleLogs', () => {
-    it('calls callback with level and message', async () => {
-      const callback = jest.fn();
-      await page.exposeFunction('callback', callback);
-
-      await interceptConsoleLogs();
-
-      await page.evaluate(() => console.log('hello'));
-      expect(callback).toBeCalledWith('log', 'hello');
-
-      await page.evaluate(() => console.error('demogorgon'));
-      expect(callback).toBeCalledWith('error', 'demogorgon');
     });
   });
 });
