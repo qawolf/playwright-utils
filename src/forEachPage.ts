@@ -5,8 +5,14 @@ export const forEachPage = async (
   pageFn: (page: Page) => any,
 ): Promise<void> => {
   // XXX remove cast after playwright fixes types
-  (context as any).on('page', async event => pageFn(await event.page()));
+  (context as any).on('page', async event => {
+    const page = await event.page();
+
+    pageFn(page);
+  });
 
   const pages = await context.pages();
-  await Promise.all([pages.map(page => pageFn(page))]);
+  const pagePromises = pages.map(page => pageFn(page));
+
+  await Promise.all(pagePromises);
 };

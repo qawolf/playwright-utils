@@ -4,6 +4,7 @@ import { join } from 'path';
 import { Browser, Page } from 'playwright';
 import { launch } from '../src/launch';
 import { saveConsoleLogs } from '../src/saveConsoleLogs';
+import { randomString } from './utils';
 
 describe('saveConsoleLogs', () => {
   let browser: Browser;
@@ -17,7 +18,7 @@ describe('saveConsoleLogs', () => {
   afterAll(() => browser.close());
 
   it('saves console logs to specified file', async () => {
-    const savePath = join(tmpdir(), `${Date.now()}.mp4`);
+    const savePath = join(tmpdir(), randomString(), `${Date.now()}.txt`);
 
     await saveConsoleLogs(page, savePath);
 
@@ -25,7 +26,6 @@ describe('saveConsoleLogs', () => {
     await page.evaluate(() => console.error('demogorgon'));
 
     const lines = readFileSync(savePath, 'utf8').split('\n');
-
     expect(lines).toEqual(['log: hello', 'error: demogorgon', '']);
   });
 });

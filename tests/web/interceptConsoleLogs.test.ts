@@ -1,9 +1,7 @@
 import { Browser, Page } from 'playwright-core';
 import { launch } from '../../src/launch';
 import { PlaywrightUtilsWeb } from '../../src/web';
-import { WEB_SCRIPT } from '../../src/webScript';
-
-import { initEvaluateScript } from '../../src/initEvaluateScript';
+import { addScript } from '../../src/web/addScript';
 
 let page: Page;
 
@@ -28,8 +26,7 @@ describe('interceptConsoleLogs', () => {
   beforeAll(async () => {
     browser = await launch();
     page = await browser.newPage();
-
-    await initEvaluateScript(page, WEB_SCRIPT);
+    await addScript(page);
   });
 
   afterAll(() => browser.close());

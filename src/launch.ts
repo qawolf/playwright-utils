@@ -18,8 +18,9 @@ const parseBool = (value: string | undefined): boolean => {
   return ['1', 't', 'true'].includes(lowerCaseValue);
 };
 
-const parseBrowserName = (name?: string): BrowserName => {
+export const parseBrowserName = (name?: string): BrowserName => {
   if (name === 'firefox' || name === 'webkit') return name;
+
   return 'chromium';
 };
 
