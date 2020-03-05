@@ -85,7 +85,7 @@ await repl({ page });
 - `context` <[BrowserContext]> The browser context.
 - `saveDir` <[string]> The directory where artifacts (video and console logs) will be saved.
 
-Saves a video and console logs for each page of the provided context. Videos will be saved at `${saveDir}/video_${pageIndex}.mp4`, and console logs will be saved at `${saveDir}/logs_${pageIndex}.txt`. `pageIndex` corresponds to the index of the page starting at `0`.
+Save a video and console logs for each page of the context. Videos are saved at `${saveDir}/video_${pageIndex}.mp4`, and console logs are saved at `${saveDir}/logs_${pageIndex}.txt`. `pageIndex` corresponds to the index of the page starting at `0`.
 
 If [FFmpeg](https://www.ffmpeg.org) is not installed, videos will not be included. Install `ffmpeg-static` as a dependency or set the `FFMPEG_PATH` environment variable.
 

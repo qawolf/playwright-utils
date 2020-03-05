@@ -1,7 +1,7 @@
 import { Page } from 'playwright-core';
 import { initEvaluateScript } from './initEvaluateScript';
 import { PlaywrightUtilsWeb } from './web';
-import { WEB_SCRIPT } from './webScript';
+import { addScript } from './web/addScript';
 import { LogCallback } from './web/interceptConsoleLogs';
 
 let logCallbackId = 0;
@@ -10,7 +10,7 @@ export const interceptConsoleLogs = async (
   page: Page,
   callback: LogCallback,
 ): Promise<void> => {
-  await initEvaluateScript(page, WEB_SCRIPT);
+  await addScript(page);
 
   const callbackName = `interceptLogs${logCallbackId++}`;
   await page.exposeFunction(callbackName, callback);
