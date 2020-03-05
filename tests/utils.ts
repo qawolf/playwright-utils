@@ -8,6 +8,7 @@ export const randomString = (): string =>
 
 export const waitUntil = (
   conditionFn: () => Promise<boolean> | boolean,
+  timeoutMs = 5000,
 ): Promise<void> => {
   return new Promise((resolve, reject) => {
     // eslint-disable-next-line prefer-const
@@ -24,6 +25,6 @@ export const waitUntil = (
       if (await conditionFn()) done(true);
     }, 500);
 
-    timeoutId = setTimeout(() => done(false), 5000);
+    timeoutId = setTimeout(() => done(false), timeoutMs);
   });
 };

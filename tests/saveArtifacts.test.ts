@@ -1,11 +1,13 @@
-import { existsSync, readFileSync } from 'fs';
+import { pathExists, readFileSync } from 'fs-extra';
 import { tmpdir } from 'os';
 import { join } from 'path';
 import { Browser } from 'playwright';
 import * as playwrightVideo from 'playwright-video';
-import { launch } from '../src/launch';
+import { launch, parseBrowserName } from '../src/launch';
 import { saveArtifacts } from '../src/saveArtifacts';
 import { randomString, waitUntil } from './utils';
+
+const browserName = parseBrowserName(process.env.QAW_BROWSER);
 
 describe('saveArtifacts', () => {
   let browser: Browser;
@@ -28,20 +30,21 @@ describe('saveArtifacts', () => {
     await page.evaluate(() => console.log('hello'));
     await page2.evaluate(() => console.info('world'));
 
-    await waitUntil(() => existsSync(join(saveDir, 'logs_0.txt')));
-    await waitUntil(() => existsSync(join(saveDir, 'logs_1.txt')));
+    await waitUntil(() => pathExists(join(saveDir, 'logs_0.txt')));
+    await waitUntil(() => pathExists(join(saveDir, 'logs_1.txt')));
 
     await context.close();
 
+    // videos are chromium only for now
+    if (browserName !== 'chromium') return;
+
     const testFn = (): Promise<[void, void]> =>
       Promise.all([
-        waitUntil(() => existsSync(join(saveDir, 'video_0.mp4'))),
-        waitUntil(() => existsSync(join(saveDir, 'video_1.mp4'))),
+        waitUntil(() => pathExists(join(saveDir, 'video_0.mp4'))),
+        waitUntil(() => pathExists(join(saveDir, 'video_1.mp4'))),
       ]);
 
     await expect(testFn()).resolves.not.toThrowError();
-    // wait for video capture to finish closing
-    await new Promise(resolve => setTimeout(resolve, 2000));
   });
 
   it('only saves console logs if ffmpeg not installed', async () => {
@@ -60,15 +63,15 @@ describe('saveArtifacts', () => {
     await page.evaluate(() => console.log('hello'));
     await page2.evaluate(() => console.info('world'));
 
-    await waitUntil(() => existsSync(logFile));
+    await waitUntil(() => pathExists(logFile));
     const lines = readFileSync(logFile, 'utf8').split('\n');
     expect(lines).toEqual(['log: hello', '']);
 
-    await waitUntil(() => existsSync(logFile2));
+    await waitUntil(() => pathExists(logFile2));
     const lines2 = readFileSync(logFile2, 'utf8').split('\n');
     expect(lines2).toEqual(['info: world', '']);
 
-    expect(existsSync(join(saveDir, 'video_0.mp4'))).toBe(false);
+    expect(await pathExists(join(saveDir, 'video_0.mp4'))).toBe(false);
 
     await context.close();
     jest.resetAllMocks();
