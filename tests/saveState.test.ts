@@ -7,14 +7,11 @@ import { saveState } from '../src/saveState';
 import { randomString, TEST_URL } from './utils';
 
 const COOKIE = {
-  sameSite: 'Lax' as 'Lax',
-  name: 'csrf_same_site',
-  value: '1',
+  sameSite: 'None' as 'None',
+  name: 'lang',
+  value: 'en',
   domain: '.twitter.com',
   path: '/',
-  expires: 1615052185.041635,
-  httpOnly: true,
-  secure: true,
 };
 
 describe('saveState', () => {
@@ -44,6 +41,10 @@ describe('saveState', () => {
     expect(isStateSaved).toBe(true);
 
     const state = await readJSON(savePath);
-    expect(state).toMatchSnapshot();
+
+    expect(state.localStorage).toEqual({ hello: 'world' });
+    expect(state.sessionStorage).toEqual({ in: 'sessionStorage' });
+
+    expect(state.cookies).toMatchObject([COOKIE]);
   });
 });

@@ -7,12 +7,12 @@ import { saveState } from '../src/saveState';
 import { randomString, TEST_URL } from './utils';
 
 const COOKIE = {
-  sameSite: 'Lax' as 'Lax',
-  name: 'csrf_same_site',
-  value: '1',
+  sameSite: 'None' as 'None',
+  name: 'lang',
+  value: 'en',
   domain: '.twitter.com',
   path: '/',
-  expires: 1615052185.041635,
+  expires: 1615052185,
   httpOnly: true,
   secure: true,
 };
@@ -26,7 +26,7 @@ describe('setState', () => {
 
   afterAll(() => browser.close());
 
-  it('loads state from the specified file', async () => {
+  it('sets state from the specified file', async () => {
     const savePath = join(tmpdir(), randomString(), 'state.json');
 
     const page = await browser.newPage();
