@@ -30,7 +30,7 @@ describe('saveState', () => {
     const savePath = join(tmpdir(), randomString(), 'state.json');
 
     const page = await browser.newPage();
-    await page.goto('http://example.com');
+    await page.goto('http://localhost:5000');
 
     await page.context().setCookies([COOKIE]);
     await page.evaluate(() => {
