@@ -45,7 +45,8 @@ jobs:
       - run: npm run test:server &
         if: matrix.test != 'lint'
 
-      - run: QAW_BROWSER=${{ matrix.test }} npm test
+        # TODO remove forceExit after https://github.com/qawolf/playwright-utils/issues/19
+      - run: QAW_BROWSER=${{ matrix.test }} npm test -- --forceExit
         if: matrix.test != 'lint'
         env:
           CI: true

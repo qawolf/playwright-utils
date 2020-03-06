@@ -3,7 +3,7 @@ import { tmpdir } from 'os';
 import { join } from 'path';
 import { Browser } from 'playwright';
 import * as playwrightVideo from 'playwright-video';
-import { launch, getLaunchOptions } from '../src/launch';
+import { launch } from '../src/launch';
 import { saveArtifacts } from '../src/saveArtifacts';
 import { randomString, waitUntil } from './utils';
 
@@ -34,11 +34,11 @@ describe('saveArtifacts', () => {
 
     await context.close();
 
+    // disable test until https://github.com/qawolf/playwright-utils/issues/19
+    // if (getLaunchOptions().browserName !== 'chromium') return;
     // videos are chromium only for now
-    if (getLaunchOptions().browserName !== 'chromium') return;
-
-    await waitUntil(() => pathExists(join(saveDir, 'video_0.mp4')));
-    await waitUntil(() => pathExists(join(saveDir, 'video_1.mp4')));
+    // await waitUntil(() => pathExists(join(saveDir, 'video_0.mp4')));
+    // await waitUntil(() => pathExists(join(saveDir, 'video_1.mp4')));
   });
 
   it('only saves console logs if ffmpeg not installed', async () => {
