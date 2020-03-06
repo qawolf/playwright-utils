@@ -20,7 +20,7 @@ export const waitUntil = (
       clearInterval(intervalId);
       clearTimeout(timeoutId);
       if (success) resolve();
-      else reject();
+      else reject('waitUntil timed out');
     });
 
     intervalId = setInterval(async () => {
