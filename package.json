@@ -24,6 +24,7 @@
     "lint": "eslint . --ext .ts,.tsx",
     "release": "np --no-cleanup",
     "test": "jest",
+    "test:server": "npx @qawolf/sandbox",
     "test:watch": "jest --watch",
     "version": "npm run clean && npm run build"
   },
@@ -38,6 +39,7 @@
     "tslib": "^1.11.1"
   },
   "devDependencies": {
+    "@qawolf/sandbox": "^0.1.6",
     "@types/debug": "^4.1.5",
     "@types/fs-extra": "^8.1.0",
     "@types/jest": "^25.1.3",

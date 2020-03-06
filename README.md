@@ -108,14 +108,39 @@ Save console logs on a page to the specified file.
 await saveConsoleLogs(page, 'logs.txt');
 ```
 
+#### playwright-utils.saveState(page, savePath)
+
+- `page` <[Page]> Save the state (cookies, [localStorage], [sessionStorage]) of this page.
+- `savePath` <[string]> Path where state will be saved as [JSON].
+
+Save the state of a page (cookies, [localStorage], [sessionStorage]) to the specified file as [JSON].
+
+```js
+await saveState(page, 'admin.json');
+```
+
+#### playwright-utils.setState(page, savePath)
+
+- `page` <[Page]> Apply the saved state (cookies, [localStorage], [sessionStorage]) to this page.
+- `savePath` <[string]> Path where state [JSON] is saved.
+
+Sets the state of a page (cookies, [localStorage], [sessionStorage]) to the [JSON] saved in the specified path.
+
+```js
+await setState(page, 'admin.json');
+```
+
 [browser]: https://github.com/microsoft/playwright/blob/master/docs/api.md#class-browser 'browser'
 [browsercontext]: https://github.com/microsoft/playwright/blob/master/docs/api.md#class-browsercontext 'BrowserContext'
 [browsertype.launch]: https://github.com/microsoft/playwright/blob/master/docs/api.md#browsertypelaunchoptions 'browserType.launch'
 [function]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function 'Function'
+[json]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON 'JSON'
+[localstorage]: https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage 'localStorage'
 [object]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object 'Object'
 [page]: https://github.com/microsoft/playwright/blob/master/docs/api.md#class-page 'Page'
 [page.evaluate]: https://github.com/microsoft/playwright/blob/master/docs/api.md#pageevaluatepagefunction-args 'page.evaluate'
 [page.addinitscript]: https://github.com/microsoft/playwright/blob/master/docs/api.md#pageaddinitscriptscript-args 'page.addInitScript'
 [promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise 'Promise'
 [serializable]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#Description 'Serializable'
+[sessionstorage]: https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage 'sessionStorage'
 [string]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type 'String'

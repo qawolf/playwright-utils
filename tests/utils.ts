@@ -1,5 +1,7 @@
 import { once } from 'lodash';
 
+export const TEST_URL = process.env.TEST_URL || 'http://localhost:5000/';
+
 // https://gist.github.com/6174/6062387
 export const randomString = (): string =>
   Math.random()
@@ -18,7 +20,7 @@ export const waitUntil = (
       clearInterval(intervalId);
       clearTimeout(timeoutId);
       if (success) resolve();
-      else reject();
+      else reject('waitUntil timed out');
     });
 
     intervalId = setInterval(async () => {
