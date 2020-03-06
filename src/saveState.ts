@@ -1,11 +1,6 @@
 import { ensureFile, writeJSON } from 'fs-extra';
-import { BrowserContext, Page } from 'playwright-core';
+import { Page } from 'playwright-core';
 import { NetworkCookie } from 'playwright-core/lib/network';
-
-interface GetStateOptions {
-  context: BrowserContext;
-  page: Page;
-}
 
 export interface State {
   cookies: NetworkCookie[];
@@ -13,25 +8,24 @@ export interface State {
   sessionStorage: object;
 }
 
-interface SaveStateOptions extends GetStateOptions {
-  savePath: string;
-}
-
-const getState = async ({ context, page }: GetStateOptions): Promise<State> => {
+const getState = async (page: Page): Promise<State> => {
+  const context = page.context();
   const cookies = await context.cookies();
   const { localStorage, sessionStorage } = await page.evaluate(() => {
-    return { localStorage, sessionStorage };
+    return {
+      localStorage: { ...localStorage },
+      sessionStorage: { ...sessionStorage },
+    };
   });
 
   return { cookies, localStorage, sessionStorage };
 };
 
-export const saveState = async ({
-  context,
-  page,
-  savePath,
-}: SaveStateOptions): Promise<void> => {
-  const state = await getState({ context, page });
+export const saveState = async (
+  page: Page,
+  savePath: string,
+): Promise<void> => {
+  const state = await getState(page);
 
   await ensureFile(savePath);
   return writeJSON(savePath, state);

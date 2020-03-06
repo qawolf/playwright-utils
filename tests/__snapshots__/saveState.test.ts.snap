@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`saveState saves state to specified file 1`] = `
+Object {
+  "cookies": Array [
+    Object {
+      "domain": ".twitter.com",
+      "expires": 1615052185.041635,
+      "httpOnly": true,
+      "name": "csrf_same_site",
+      "path": "/",
+      "sameSite": "Lax",
+      "secure": true,
+      "session": false,
+      "value": "1",
+    },
+  ],
+  "localStorage": Object {
+    "hello": "world",
+  },
+  "sessionStorage": Object {
+    "in": "sessionStorage",
+  },
+}
+`;
