@@ -1,12 +1,6 @@
 import { readJSON } from 'fs-extra';
-import { BrowserContext, Page } from 'playwright-core';
+import { Page } from 'playwright-core';
 import { State } from './saveState';
-
-interface LoadStateOptions {
-  context: BrowserContext;
-  page: Page;
-  savePath: string;
-}
 
 interface SetStorageOptions {
   items: object;
@@ -21,23 +15,27 @@ const setStorage = async ({
 }: SetStorageOptions): Promise<void> => {
   if (!Object.keys(items).length) return;
 
-  await page.evaluate(items => {
-    window[storageType].clear();
+  await page.evaluate(
+    (items, storageType) => {
+      window[storageType].clear();
 
-    Object.keys(items).forEach(key => {
-      window[storageType].setItem(key, items[key]);
-    });
-  }, items);
+      Object.keys(items).forEach(key => {
+        window[storageType].setItem(key, items[key]);
+      });
+    },
+    items,
+    storageType,
+  );
 };
 
-export const loadState = async ({
-  context,
-  page,
-  savePath,
-}: LoadStateOptions): Promise<void> => {
+export const loadState = async (
+  page: Page,
+  savePath: string,
+): Promise<void> => {
   const state: State = await readJSON(savePath);
 
   if (state.cookies.length) {
+    const context = page.context();
     await context.setCookies(state.cookies);
   }
 
@@ -51,6 +49,4 @@ export const loadState = async ({
     page,
     storageType: 'sessionStorage',
   });
-
-  await page.reload();
 };

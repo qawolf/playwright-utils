@@ -80,6 +80,17 @@ Open a Node REPL.
 await repl({ page });
 ```
 
+#### playwright-utils.loadState(page, savePath)
+
+- `page` <[Page]> Load the saved state (cookies, [localStorage], [sessionStorage]) on this page.
+- `savePath` <[string]> Path where state [JSON] is saved.
+
+Sets the state of a page (cookies, [localStorage], [sessionStorage]) to the [JSON] saved in the specified path.
+
+```js
+await loadState(page, 'admin.json');
+```
+
 #### playwright-utils.saveArtifacts(context, saveDir)
 
 - `context` <[BrowserContext]> The browser context.
@@ -108,7 +119,7 @@ Save console logs on a page to the specified file.
 await saveConsoleLogs(page, 'logs.txt');
 ```
 
-#### playwright-utils.stateState(page, savePath)
+#### playwright-utils.saveState(page, savePath)
 
 - `page` <[Page]> Save the state (cookies, [localStorage], [sessionStorage]) of this page.
 - `savePath` <[string]> Path where state will be saved as [JSON].
@@ -116,7 +127,7 @@ await saveConsoleLogs(page, 'logs.txt');
 Save the state of a page (cookies, [localStorage], [sessionStorage]) to the specified file as [JSON].
 
 ```js
-await stateState(page, 'admin.json');
+await saveState(page, 'admin.json');
 ```
 
 [browser]: https://github.com/microsoft/playwright/blob/master/docs/api.md#class-browser 'browser'

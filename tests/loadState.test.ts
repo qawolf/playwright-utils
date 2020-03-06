@@ -1,8 +1,8 @@
-import { pathExists, readJSON } from 'fs-extra';
 import { tmpdir } from 'os';
 import { join } from 'path';
 import { Browser } from 'playwright';
 import { launch } from '../src/launch';
+import { loadState } from '../src/loadState';
 import { saveState } from '../src/saveState';
 import { randomString } from './utils';
 
@@ -17,7 +17,7 @@ const COOKIE = {
   secure: true,
 };
 
-describe('saveState', () => {
+describe('loadState', () => {
   let browser: Browser;
 
   beforeAll(async () => {
@@ -26,7 +26,7 @@ describe('saveState', () => {
 
   afterAll(() => browser.close());
 
-  it('saves state to the specified file', async () => {
+  it('loads state from the specified file', async () => {
     const savePath = join(tmpdir(), randomString(), 'state.json');
 
     const page = await browser.newPage();
@@ -40,10 +40,26 @@ describe('saveState', () => {
 
     await saveState(page, savePath);
 
-    const isStateSaved = await pathExists(savePath);
-    expect(isStateSaved).toBe(true);
+    const newBrowser = await launch();
+    const page2 = await newBrowser.newPage();
+    await page2.goto('http://example.com');
 
-    const state = await readJSON(savePath);
-    expect(state).toMatchSnapshot();
+    await loadState(page2, savePath);
+
+    const cookies = await page.context().cookies();
+    expect(cookies).toMatchObject([COOKIE]);
+
+    const storage = await page.evaluate(() => {
+      return {
+        localStorage: { ...localStorage },
+        sessionStorage: { ...sessionStorage },
+      };
+    });
+    expect(storage).toEqual({
+      localStorage: { hello: 'world' },
+      sessionStorage: { in: 'sessionStorage' },
+    });
+
+    await newBrowser.close();
   });
 });
