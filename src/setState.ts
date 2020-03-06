@@ -28,10 +28,7 @@ const setStorage = async ({
   );
 };
 
-export const loadState = async (
-  page: Page,
-  savePath: string,
-): Promise<void> => {
+export const setState = async (page: Page, savePath: string): Promise<void> => {
   const state: State = await readJSON(savePath);
 
   if (state.cookies.length) {

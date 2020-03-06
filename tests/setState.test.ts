@@ -2,7 +2,7 @@ import { tmpdir } from 'os';
 import { join } from 'path';
 import { Browser } from 'playwright';
 import { launch } from '../src/launch';
-import { loadState } from '../src/loadState';
+import { setState } from '../src/setState';
 import { saveState } from '../src/saveState';
 import { randomString, TEST_URL } from './utils';
 
@@ -17,7 +17,7 @@ const COOKIE = {
   secure: true,
 };
 
-describe('loadState', () => {
+describe('setState', () => {
   let browser: Browser;
 
   beforeAll(async () => {
@@ -44,7 +44,7 @@ describe('loadState', () => {
     const page2 = await newBrowser.newPage();
     await page2.goto(TEST_URL);
 
-    await loadState(page2, savePath);
+    await setState(page2, savePath);
 
     const cookies = await page.context().cookies();
     expect(cookies).toMatchObject([COOKIE]);
