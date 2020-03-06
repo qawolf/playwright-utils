@@ -4,7 +4,7 @@ import { Browser } from 'playwright';
 import { launch } from '../src/launch';
 import { loadState } from '../src/loadState';
 import { saveState } from '../src/saveState';
-import { randomString } from './utils';
+import { randomString, TEST_URL } from './utils';
 
 const COOKIE = {
   sameSite: 'Lax' as 'Lax',
@@ -30,7 +30,7 @@ describe('loadState', () => {
     const savePath = join(tmpdir(), randomString(), 'state.json');
 
     const page = await browser.newPage();
-    await page.goto('http://localhost:5000');
+    await page.goto(TEST_URL);
 
     await page.context().setCookies([COOKIE]);
     await page.evaluate(() => {
@@ -42,7 +42,7 @@ describe('loadState', () => {
 
     const newBrowser = await launch();
     const page2 = await newBrowser.newPage();
-    await page2.goto('http://localhost:5000');
+    await page2.goto(TEST_URL);
 
     await loadState(page2, savePath);
 

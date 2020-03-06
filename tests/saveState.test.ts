@@ -4,7 +4,7 @@ import { join } from 'path';
 import { Browser } from 'playwright';
 import { launch } from '../src/launch';
 import { saveState } from '../src/saveState';
-import { randomString } from './utils';
+import { randomString, TEST_URL } from './utils';
 
 const COOKIE = {
   sameSite: 'Lax' as 'Lax',
@@ -30,7 +30,7 @@ describe('saveState', () => {
     const savePath = join(tmpdir(), randomString(), 'state.json');
 
     const page = await browser.newPage();
-    await page.goto('http://localhost:5000');
+    await page.goto(TEST_URL);
 
     await page.context().setCookies([COOKIE]);
     await page.evaluate(() => {
