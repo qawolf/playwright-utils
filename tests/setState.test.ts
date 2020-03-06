@@ -12,19 +12,18 @@ const COOKIE = {
   value: 'en',
   domain: '.twitter.com',
   path: '/',
-  expires: 1615052185,
-  httpOnly: true,
-  secure: true,
 };
 
 describe('setState', () => {
   let browser: Browser;
+  let browser2: Browser;
 
   beforeAll(async () => {
     browser = await launch();
+    browser2 = await launch();
   });
 
-  afterAll(() => browser.close());
+  afterAll(() => Promise.all([browser.close(), browser2.close()]));
 
   it('sets state from the specified file', async () => {
     const savePath = join(tmpdir(), randomString(), 'state.json');
@@ -40,8 +39,7 @@ describe('setState', () => {
 
     await saveState(page, savePath);
 
-    const newBrowser = await launch();
-    const page2 = await newBrowser.newPage();
+    const page2 = await browser2.newPage();
     await page2.goto(TEST_URL);
 
     await setState(page2, savePath);
@@ -59,7 +57,5 @@ describe('setState', () => {
       localStorage: { hello: 'world' },
       sessionStorage: { in: 'sessionStorage' },
     });
-
-    await newBrowser.close();
   });
 });
