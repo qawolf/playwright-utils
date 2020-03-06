@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`saveState saves state to specified file 1`] = `
+exports[`saveState saves state to the specified file 1`] = `
 Object {
   "cookies": Array [
     Object {
