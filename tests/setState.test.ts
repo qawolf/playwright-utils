@@ -1,7 +1,7 @@
 import { tmpdir } from 'os';
 import { join } from 'path';
 import { Browser } from 'playwright';
-import { getLaunchOptions, launch } from '../src/launch';
+import { launch } from '../src/launch';
 import { setState } from '../src/setState';
 import { saveState } from '../src/saveState';
 import { randomString, TEST_URL } from './utils';
@@ -26,9 +26,6 @@ describe('setState', () => {
   afterAll(() => Promise.all([browser.close(), browser2.close()]));
 
   it('sets state from the specified file', async () => {
-    // https://github.com/microsoft/playwright/issues/1269
-    if (getLaunchOptions().browserName === 'firefox') return;
-
     const savePath = join(tmpdir(), randomString(), 'state.json');
 
     const page = await browser.newPage();
