@@ -6,12 +6,12 @@ interface ScrollValue {
 }
 
 interface ScrollOptions extends ScrollValue {
-  timeoutMs?: number;
+  timeout?: number;
 }
 
-const DEFAULT_TIMEOUT_MS = 15000;
+const DEFAULT_TIMEOUT = 30000; // milliseconds
 
-const getScrollValue = (
+export const getScrollValue = (
   page: Page,
   elementHandle: ElementHandle<Element>,
 ): Promise<ScrollValue> => {
@@ -23,7 +23,7 @@ const getScrollValue = (
 export const scroll = async (
   page: Page,
   selector: string,
-  { timeoutMs, x, y }: ScrollOptions,
+  { timeout, x, y }: ScrollOptions,
 ): Promise<void> => {
   const elementHandle = await page.waitForSelector(selector);
   const startScrollValue = await getScrollValue(page, elementHandle);
@@ -34,7 +34,7 @@ export const scroll = async (
         element.scroll(x, y);
         return element.scrollLeft === x && element.scrollTop === y;
       },
-      { polling: 100, timeout: timeoutMs || DEFAULT_TIMEOUT_MS },
+      { polling: 100, timeout: timeout || DEFAULT_TIMEOUT },
       elementHandle,
       { x, y },
     );
@@ -48,7 +48,6 @@ export const scroll = async (
       return;
     }
 
-    console.error(`could not scroll element`, elementHandle);
     throw new Error(`could not scroll element ${selector}`);
   }
 };
