@@ -16,7 +16,7 @@ export const formatArgument = (argument: any): string => {
 
   try {
     return JSON.stringify(argument);
-  } catch (e) {
+  } catch (error) {
     if (argument && argument.toString) {
       return argument.toString();
     }
