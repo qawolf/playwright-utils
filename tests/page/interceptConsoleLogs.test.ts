@@ -1,6 +1,5 @@
 import { Browser, Page } from 'playwright-core';
-import { launch } from '../src/launch';
-import { interceptConsoleLogs } from '../src/interceptConsoleLogs';
+import { interceptConsoleLogs, launch } from '../../src';
 
 describe('interceptConsoleLogs', () => {
   let browser: Browser;

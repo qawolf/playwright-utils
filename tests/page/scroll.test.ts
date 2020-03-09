@@ -1,7 +1,7 @@
 import { Browser, Page } from 'playwright';
-import { getLaunchOptions, launch } from '../src/launch';
-import { getScrollValue, scroll } from '../src/scroll';
-import { TEST_URL } from './utils';
+import { getLaunchOptions, launch, scroll } from '../../src';
+import { getScrollValue } from '../../src/page/scroll';
+import { TEST_URL } from '../utils';
 
 describe('scroll', () => {
   let browser: Browser;

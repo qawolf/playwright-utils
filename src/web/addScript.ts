@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { Page } from 'playwright';
-import { initEvaluateScript } from '../initEvaluateScript';
+import { initEvaluateScript } from '../page/initEvaluateScript';
 
 export const WEB_SCRIPT = readFileSync(
   join(__dirname.replace('/src', '/build'), '../playwrightutils.web.js'),
