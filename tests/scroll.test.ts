@@ -1,5 +1,5 @@
 import { Browser, Page } from 'playwright';
-import { launch } from '../src/launch';
+import { getLaunchOptions, launch } from '../src/launch';
 import { getScrollValue, scroll } from '../src/scroll';
 import { TEST_URL } from './utils';
 
@@ -49,6 +49,11 @@ describe('scroll', () => {
 
   it('does not throw an error on navigation', async () => {
     const promise = page.goto(`${TEST_URL}large`);
+
+    if (getLaunchOptions().browserName === 'webkit') {
+      // give webkit cycle to send goto
+      await new Promise(resolve => setTimeout(resolve, 500));
+    }
 
     await scroll(page, 'html', { x: 0, y: 200 });
 
