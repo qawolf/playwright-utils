@@ -3,7 +3,7 @@ import { join } from 'path';
 import { BrowserContext } from 'playwright-core';
 import { getFfmpegPath, saveVideo } from 'playwright-video';
 import { forEachPage } from './forEachPage';
-import { saveConsoleLogs } from './saveConsoleLogs';
+import { saveConsoleLogs } from '../page/saveConsoleLogs';
 
 const debug = Debug('playwright-utils:saveArtifacts');
 

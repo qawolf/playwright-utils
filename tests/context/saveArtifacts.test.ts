@@ -3,9 +3,8 @@ import { tmpdir } from 'os';
 import { join } from 'path';
 import { Browser } from 'playwright';
 import * as playwrightVideo from 'playwright-video';
-import { launch, getLaunchOptions } from '../src/launch';
-import { saveArtifacts } from '../src/saveArtifacts';
-import { randomString, waitUntil } from './utils';
+import { launch, getLaunchOptions, saveArtifacts } from '../../src';
+import { randomString, waitUntil } from '../utils';
 
 describe('saveArtifacts', () => {
   let browser: Browser;

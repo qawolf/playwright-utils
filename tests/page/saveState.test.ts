@@ -2,9 +2,8 @@ import { pathExists, readJSON } from 'fs-extra';
 import { tmpdir } from 'os';
 import { join } from 'path';
 import { Browser } from 'playwright';
-import { launch } from '../src/launch';
-import { saveState } from '../src/saveState';
-import { randomString, TEST_URL } from './utils';
+import { launch, saveState } from '../../src';
+import { randomString, TEST_URL } from '../utils';
 
 const COOKIE = {
   sameSite: 'None' as 'None',

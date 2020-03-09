@@ -1,6 +1,5 @@
 import { Page } from 'playwright-core';
-import { launch } from '../src/launch';
-import { forEachPage } from '../src/forEachPage';
+import { forEachPage, launch } from '../../src';
 
 it('runs for existing and new pages', async () => {
   const browser = await launch();

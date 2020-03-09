@@ -1,8 +1,8 @@
 import { Page } from 'playwright-core';
 import { initEvaluateScript } from './initEvaluateScript';
-import { PlaywrightUtilsWeb } from './web';
-import { addScript } from './web/addScript';
-import { LogCallback } from './web/interceptConsoleLogs';
+import { PlaywrightUtilsWeb } from '../web';
+import { addScript } from '../web/addScript';
+import { LogCallback } from '../web/interceptConsoleLogs';
 
 let logCallbackId = 0;
 

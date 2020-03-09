@@ -1,13 +1,18 @@
-export { forEachPage } from './forEachPage';
-export { initEvaluateScript } from './initEvaluateScript';
-export { interceptConsoleLogs } from './interceptConsoleLogs';
+// context utils
+export { forEachPage } from './context/forEachPage';
+export { saveArtifacts } from './context/saveArtifacts';
+
+// page utils
+export { initEvaluateScript } from './page/initEvaluateScript';
+export { interceptConsoleLogs } from './page/interceptConsoleLogs';
+export { saveConsoleLogs } from './page/saveConsoleLogs';
+export { saveState } from './page/saveState';
+export { scroll } from './page/scroll';
+export { setState } from './page/setState';
+
+// global utils
 export { getLaunchOptions, launch } from './launch';
 export { repl, ReplContext } from './repl';
-export { saveArtifacts } from './saveArtifacts';
-export { saveConsoleLogs } from './saveConsoleLogs';
-export { saveState } from './saveState';
-export { scroll } from './scroll';
-export { setState } from './setState';
 
 // for internal use
-export { indexPages, IndexedPage } from './indexPages';
+export { indexPages, IndexedPage } from './context/indexPages';

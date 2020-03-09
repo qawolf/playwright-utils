@@ -1,4 +1,4 @@
-import { getLaunchOptions } from '../src/launch';
+import { getLaunchOptions } from '../src';
 
 describe('getLaunchOptions', () => {
   it('chooses a browser based on the name', () => {
