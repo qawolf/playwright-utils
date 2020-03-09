@@ -3,8 +3,8 @@ import { tmpdir } from 'os';
 import { join } from 'path';
 import { Browser } from 'playwright';
 import * as playwrightVideo from 'playwright-video';
-import { launch, getLaunchOptions, saveArtifacts } from '../../src';
-import { randomString, waitUntil } from '../utils';
+import { launch, getLaunchOptions, saveArtifacts, waitFor } from '../../src';
+import { randomString } from '../utils';
 
 describe('saveArtifacts', () => {
   let browser: Browser;
@@ -29,15 +29,15 @@ describe('saveArtifacts', () => {
     await page2.evaluate(() => console.info('world'));
 
     expect(async () => {
-      await waitUntil(() => pathExists(join(saveDir, 'logs_0.txt')));
-      await waitUntil(() => pathExists(join(saveDir, 'logs_1.txt')));
+      await waitFor(() => pathExists(join(saveDir, 'logs_0.txt')));
+      await waitFor(() => pathExists(join(saveDir, 'logs_1.txt')));
 
       await context.close();
 
       // videos are chromium only for now
       if (getLaunchOptions().browserName !== 'chromium') return;
-      await waitUntil(() => pathExists(join(saveDir, 'video_0.mp4')), 15000);
-      await waitUntil(() => pathExists(join(saveDir, 'video_1.mp4')), 15000);
+      await waitFor(() => pathExists(join(saveDir, 'video_0.mp4')));
+      await waitFor(() => pathExists(join(saveDir, 'video_1.mp4')));
     }).not.toThrowError();
   });
 
@@ -57,11 +57,11 @@ describe('saveArtifacts', () => {
     await page.evaluate(() => console.log('hello'));
     await page2.evaluate(() => console.info('world'));
 
-    await waitUntil(() => pathExists(logFile));
+    await waitFor(() => pathExists(logFile));
     const lines = readFileSync(logFile, 'utf8').split('\n');
     expect(lines).toEqual(['log: hello', '']);
 
-    await waitUntil(() => pathExists(logFile2));
+    await waitFor(() => pathExists(logFile2));
     const lines2 = readFileSync(logFile2, 'utf8').split('\n');
     expect(lines2).toEqual(['info: world', '']);
 

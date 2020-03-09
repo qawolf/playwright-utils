@@ -15,4 +15,6 @@ export { getLaunchOptions, launch } from './launch';
 export { repl, ReplContext } from './repl';
 
 // for internal use
+export { waitFor } from './waitFor';
 export { indexPages, IndexedPage } from './context/indexPages';
+export { waitForPage } from './context/waitForPage';
