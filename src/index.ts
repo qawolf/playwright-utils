@@ -6,6 +6,7 @@ export { repl, ReplContext } from './repl';
 export { saveArtifacts } from './saveArtifacts';
 export { saveConsoleLogs } from './saveConsoleLogs';
 export { saveState } from './saveState';
+export { scroll } from './scroll';
 export { setState } from './setState';
 
 // for internal use

@@ -119,6 +119,24 @@ Save the state of a page (cookies, [localStorage], [sessionStorage]) to the spec
 await saveState(page, 'admin.json');
 ```
 
+#### playwright-utils.scroll(page, selector, options)
+
+- `page` <[Page]> Find the element to scroll on this page.
+- `selector` <[string]> Selector of the element to scroll.
+- `options` <[Object]>
+  - `x` <[number]> horizontal position to scroll element to in pixels.
+  - `y` <[number]> vertical position to scroll element to in pixels.
+  - `timeout` <?[number]> maximum time to wait for element to reach scroll position in milliseconds. Defaults to `30000` (30 seconds).
+  - `waitUntil` <?"commit"|"load"|"domcontentloaded"|"networkidle0"|"networkidle2"> When to consider navigation succeeded before trying to scroll. Defaults to `"load"`.
+
+Scrolls an element to the specified `x` and `y` position. It will keep trying to scroll the element to the specified position until `timeout` milliseconds have passed.
+
+If the element cannot be scrolled at all before timeout, an error is thrown.
+
+```js
+await scroll(page, '#container', { x: 0, y: 500 });
+```
+
 #### playwright-utils.setState(page, savePath)
 
 - `page` <[Page]> Apply the saved state (cookies, [localStorage], [sessionStorage]) to this page.
@@ -136,6 +154,7 @@ await setState(page, 'admin.json');
 [function]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function 'Function'
 [json]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON 'JSON'
 [localstorage]: https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage 'localStorage'
+[number]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number 'number'
 [object]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object 'Object'
 [page]: https://github.com/microsoft/playwright/blob/master/docs/api.md#class-page 'Page'
 [page.evaluate]: https://github.com/microsoft/playwright/blob/master/docs/api.md#pageevaluatepagefunction-args 'page.evaluate'
