@@ -1,4 +1,5 @@
 import { ElementHandle, Page } from 'playwright-core';
+import { LifecycleEvent } from 'playwright-core/lib/frames';
 
 interface ScrollValue {
   x: number;
@@ -7,6 +8,7 @@ interface ScrollValue {
 
 interface ScrollOptions extends ScrollValue {
   timeout?: number;
+  waitUntil?: LifecycleEvent;
 }
 
 const DEFAULT_TIMEOUT = 30000; // milliseconds
@@ -23,8 +25,10 @@ export const getScrollValue = (
 export const scroll = async (
   page: Page,
   selector: string,
-  { timeout, x, y }: ScrollOptions,
+  { timeout, x, y, waitUntil }: ScrollOptions,
 ): Promise<void> => {
+  await page.waitForLoadState({ waitUntil: waitUntil || 'load' });
+
   const elementHandle = await page.waitForSelector(selector);
   const startScrollValue = await getScrollValue(page, elementHandle);
 

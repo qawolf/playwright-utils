@@ -127,6 +127,7 @@ await saveState(page, 'admin.json');
   - `x` <[number]> horizontal position to scroll element to in pixels.
   - `y` <[number]> vertical position to scroll element to in pixels.
   - `timeout` <?[number]> maximum time to wait for element to reach scroll position in milliseconds. Defaults to `30000` (30 seconds).
+  - `waitUntil` <?"commit"|"load"|"domcontentloaded"|"networkidle0"|"networkidle2"> When to consider navigation succeeded before trying to scroll. Defaults to `"load"`.
 
 Scrolls an element to the specified `x` and `y` position. It will keep trying to scroll the element to the specified position until `timeout` milliseconds have passed.
 

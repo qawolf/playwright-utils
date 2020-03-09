@@ -15,7 +15,7 @@ describe('scroll', () => {
   afterAll(() => browser.close());
 
   it('scrolls element to specified position if possible', async () => {
-    await page.goto(`${TEST_URL}infinite-scroll`);
+    await page.goto(`${TEST_URL}large`);
 
     await scroll(page, 'html', { x: 0, y: 200 });
 
@@ -45,6 +45,17 @@ describe('scroll', () => {
 
     expect(result.x).toBe(0);
     expect(result.y).toBeLessThan(1600);
+  });
+
+  it('does not throw an error on navigation', async () => {
+    const promise = page.goto(`${TEST_URL}large`);
+
+    await scroll(page, 'html', { x: 0, y: 200 });
+
+    const elementHandle = await page.waitForSelector('html');
+    expect(await getScrollValue(page, elementHandle)).toEqual({ x: 0, y: 200 });
+
+    await promise;
   });
 
   it('throws error if cannot scroll element at all', async () => {
