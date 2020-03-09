@@ -29,15 +29,17 @@ describe('saveArtifacts', () => {
     await page.evaluate(() => console.log('hello'));
     await page2.evaluate(() => console.info('world'));
 
-    await waitUntil(() => pathExists(join(saveDir, 'logs_0.txt')));
-    await waitUntil(() => pathExists(join(saveDir, 'logs_1.txt')));
+    expect(async () => {
+      await waitUntil(() => pathExists(join(saveDir, 'logs_0.txt')));
+      await waitUntil(() => pathExists(join(saveDir, 'logs_1.txt')));
 
-    await context.close();
+      await context.close();
 
-    // videos are chromium only for now
-    if (getLaunchOptions().browserName !== 'chromium') return;
-    await waitUntil(() => pathExists(join(saveDir, 'video_0.mp4')), 15000);
-    await waitUntil(() => pathExists(join(saveDir, 'video_1.mp4')), 15000);
+      // videos are chromium only for now
+      if (getLaunchOptions().browserName !== 'chromium') return;
+      await waitUntil(() => pathExists(join(saveDir, 'video_0.mp4')), 15000);
+      await waitUntil(() => pathExists(join(saveDir, 'video_1.mp4')), 15000);
+    }).not.toThrowError();
   });
 
   it('only saves console logs if ffmpeg not installed', async () => {
