@@ -1,5 +1,3 @@
-import { isUndefined } from 'util';
-
 type WaitForOptions = {
   interval?: number;
   timeout?: number;
@@ -28,7 +26,7 @@ export const waitFor = async <T>(
       clearInterval(intervalId);
       clearTimeout(timeoutId);
 
-      if (!isUndefined(value)) resolve(value);
+      if (value) resolve(value);
       else reject(`waitFor timed out after ${timeout}ms`);
     };
 

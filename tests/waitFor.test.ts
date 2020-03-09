@@ -17,7 +17,7 @@ describe('waitFor', () => {
 
   it('times out when nothing truthy is resolved', async () => {
     await expect(
-      waitFor(() => null, {
+      waitFor(() => false, {
         timeout: 0,
       }),
     ).rejects.toEqual('waitFor timed out after 0ms');

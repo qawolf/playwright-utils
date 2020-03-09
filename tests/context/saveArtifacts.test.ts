@@ -49,8 +49,8 @@ describe('saveArtifacts', () => {
 
       // make sure there are frames
       await page.goto(TEST_URL);
-      await page.goto(`${TEST_URL}test-inputs`);
       await page2.goto(TEST_URL);
+      await page.goto(`${TEST_URL}test-inputs`);
       await page2.goto(`${TEST_URL}test-inputs`);
 
       await page.close();
