@@ -1,5 +1,5 @@
 import { ElementHandle, Page } from 'playwright-core';
-import { LifecycleEvent } from 'playwright-core/lib/frames';
+import { LifecycleEvent } from 'playwright-core/lib/types';
 
 interface ScrollValue {
   x: number;
