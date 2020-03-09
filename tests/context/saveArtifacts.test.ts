@@ -1,10 +1,10 @@
 import { pathExists, readFileSync } from 'fs-extra';
 import { tmpdir } from 'os';
 import { join } from 'path';
-import { Browser } from 'playwright';
+import { Browser, Page } from 'playwright';
 import * as playwrightVideo from 'playwright-video';
 import { launch, getLaunchOptions, saveArtifacts, waitFor } from '../../src';
-import { randomString } from '../utils';
+import { randomString, TEST_URL } from '../utils';
 
 describe('saveArtifacts', () => {
   let browser: Browser;
@@ -15,30 +15,55 @@ describe('saveArtifacts', () => {
 
   afterAll(() => browser.close());
 
-  it('saves a video and console logs to specified directory', async () => {
-    const saveDir = join(tmpdir(), randomString());
+  describe('ffmpeg installed', () => {
+    let saveDir: string;
+    let page: Page;
+    let page2: Page;
 
-    const context = await browser.newContext();
-    const page = await context.newPage();
-    const page2 = await context.newPage();
+    beforeAll(async () => {
+      saveDir = join(tmpdir(), randomString());
 
-    await saveArtifacts(context, saveDir);
+      const context = await browser.newContext();
+      page = await context.newPage();
+      page2 = await context.newPage();
 
-    // make sure there are logs
-    await page.evaluate(() => console.log('hello'));
-    await page2.evaluate(() => console.info('world'));
+      await saveArtifacts(context, saveDir);
+    });
 
-    expect(async () => {
-      await waitFor(() => pathExists(join(saveDir, 'logs_0.txt')));
-      await waitFor(() => pathExists(join(saveDir, 'logs_1.txt')));
+    it('saves console logs', async () => {
+      await page.evaluate(() => console.log('hello'));
+      await page2.evaluate(() => console.info('world'));
 
-      await context.close();
+      await expect(
+        waitFor(() => pathExists(join(saveDir, 'logs_0.txt'))),
+      ).resolves.toBe(true);
 
+      await expect(
+        waitFor(() => pathExists(join(saveDir, 'logs_1.txt'))),
+      ).resolves.toBe(true);
+    });
+
+    it('saves videos', async () => {
       // videos are chromium only for now
       if (getLaunchOptions().browserName !== 'chromium') return;
-      await waitFor(() => pathExists(join(saveDir, 'video_0.mp4')));
-      await waitFor(() => pathExists(join(saveDir, 'video_1.mp4')));
-    }).not.toThrowError();
+
+      // make sure there are frames
+      await page.goto(TEST_URL);
+      await page.goto(`${TEST_URL}test-inputs`);
+      await page2.goto(TEST_URL);
+      await page2.goto(`${TEST_URL}test-inputs`);
+
+      await page.close();
+      await page2.close();
+
+      await expect(
+        waitFor(() => pathExists(join(saveDir, 'video_0.mp4'))),
+      ).resolves.toBe(true);
+
+      await expect(
+        waitFor(() => pathExists(join(saveDir, 'video_1.mp4'))),
+      ).resolves.toBe(true);
+    });
   });
 
   it('only saves console logs if ffmpeg not installed', async () => {
