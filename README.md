@@ -85,7 +85,7 @@ await repl({ page });
 - `context` <[BrowserContext]> The browser context.
 - `saveDir` <[string]> The directory where artifacts (video and console logs) will be saved.
 
-Save a video and console logs for each page of the context. Videos are saved at `${saveDir}/video_${pageIndex}.mp4`, and console logs are saved at `${saveDir}/logs_${pageIndex}.txt`. `pageIndex` corresponds to the index of the page starting at `0`.
+Save a video and console logs for each page of the context. Videos are saved at `${saveDir}/video_${pageIndex}_${timestamp}.mp4`, and console logs are saved at `${saveDir}/logs_${pageIndex}_${timestamp}.txt`. `pageIndex` corresponds to the index of the page starting at `0`.
 
 If [FFmpeg](https://www.ffmpeg.org) is not installed, videos will not be included. Install `ffmpeg-static` as a dependency or set the `FFMPEG_PATH` environment variable.
 
@@ -118,6 +118,12 @@ Save the state of a page (cookies, [localStorage], [sessionStorage]) to the spec
 ```js
 await saveState(page, 'admin.json');
 ```
+
+#### playwright-utils.saveVideos()
+
+- returns: <[Promise]> Resolves after videos are saved.
+
+Stop and wait for all videos started by [saveArtifacts](#playwright-utilssaveartifactscontext-savedir) to save.
 
 #### playwright-utils.scroll(page, selector, options)
 
