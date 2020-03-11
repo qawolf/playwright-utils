@@ -1,6 +1,6 @@
 // context utils
 export { forEachPage } from './context/forEachPage';
-export { saveArtifacts } from './context/saveArtifacts';
+export { saveArtifacts, stopVideos } from './context/saveArtifacts';
 
 // page utils
 export { initEvaluateScript } from './page/initEvaluateScript';
