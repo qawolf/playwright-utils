@@ -38,24 +38,20 @@ export const getLaunchOptions = (
     options.browserName || process.env.QAW_BROWSER,
   );
 
-  if (isNullOrUndefined(options.args)) {
-    let args: string[] = [];
-    if (browserName === 'chromium') {
-      args = [
-        '--disable-dev-shm-usage',
-        '--no-default-browser-check',
-        '--window-position=0,0',
-      ];
+  let defaultArgs: string[] = [];
 
-      if (platform() === 'linux') {
-        // We use --no-sandbox because we cannot change the USER for certain CIs (like GitHub).
-        // "Ensure your Dockerfile does not set the USER instruction, otherwise you will not be able to access GITHUB_WORKSPACE"
-        args.push('--no-sandbox');
-      }
-    }
+  if (browserName === 'chromium' && platform() === 'linux') {
+    // We use --no-sandbox because we cannot change the USER for certain CIs (like GitHub).
+    // "Ensure your Dockerfile does not set the USER instruction, otherwise you will not be able to access GITHUB_WORKSPACE"
+    defaultArgs.push('--no-sandbox');
   }
 
-  return { ...launchOptions, browserName };
+  return {
+    args: defaultArgs,
+    // override args if they are provided
+    ...launchOptions,
+    browserName,
+  };
 };
 
 export const launch = async (
