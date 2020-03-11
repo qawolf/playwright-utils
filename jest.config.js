@@ -7,5 +7,5 @@ module.exports = {
   testRegex: '(/tests/.*.(test|spec)).(jsx?|tsx?)$',
   coverageDirectory: 'coverage',
   collectCoverageFrom: ['src/**/*.{ts,tsx,js,jsx}', '!src/**/*.d.ts'],
-  testTimeout: 30000,
+  testTimeout: 60000,
 };
