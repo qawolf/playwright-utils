@@ -44,5 +44,6 @@ export const saveArtifacts = (
   });
 };
 
-export const stopVideos = () =>
-  Promise.all(capturesToStop.map(capture => capture.stop()));
+export const stopVideos = async (): Promise<void> => {
+  await Promise.all(capturesToStop.map(capture => capture.stop()));
+};

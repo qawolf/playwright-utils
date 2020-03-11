@@ -12,12 +12,12 @@ import {
 } from '../../src';
 import { randomString, TEST_URL } from '../utils';
 
-const waitForPath = (dir: string, search: string): Promise<string> =>
+const waitForPath = (dir: string, search: string): Promise<string | null> =>
   waitFor(async () => {
     const files = await readdir(dir);
     const file = files.find(f => f.includes(search));
     if (file) return join(dir, file);
-    return undefined;
+    return null;
   });
 
 describe('saveArtifacts', () => {
