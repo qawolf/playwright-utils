@@ -119,12 +119,6 @@ Save the state of a page (cookies, [localStorage], [sessionStorage]) to the spec
 await saveState(page, 'admin.json');
 ```
 
-#### playwright-utils.saveVideos()
-
-- returns: <[Promise]> Resolves after videos are saved.
-
-Stop and wait for all videos started by [saveArtifacts](#playwright-utilssaveartifactscontext-savedir) to save.
-
 #### playwright-utils.scroll(page, selector, options)
 
 - `page` <[Page]> Find the element to scroll on this page.
@@ -153,6 +147,12 @@ Sets the state of a page (cookies, [localStorage], [sessionStorage]) to the [JSO
 ```js
 await setState(page, 'admin.json');
 ```
+
+#### playwright-utils.stopVideos()
+
+- returns: <[Promise]> Resolves after videos are saved.
+
+Stop and wait for all videos started by [saveArtifacts](#playwright-utilssaveartifactscontext-savedir) to save.
 
 [browser]: https://github.com/microsoft/playwright/blob/master/docs/api.md#class-browser 'browser'
 [browsercontext]: https://github.com/microsoft/playwright/blob/master/docs/api.md#class-browsercontext 'BrowserContext'
