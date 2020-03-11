@@ -1,3 +1,4 @@
+import { platform } from 'os';
 import { getLaunchOptions } from '../src';
 
 describe('getLaunchOptions', () => {
@@ -22,5 +23,16 @@ describe('getLaunchOptions', () => {
     expect(headless).toEqual(false);
 
     process.env.QAW_HEADLESS = '';
+  });
+
+  it('on linux chromium, defaults --no-sandbox when no args are provided', () => {
+    if (platform() !== 'linux') return;
+
+    process.env.QAW_BROWSER = 'chromium';
+    expect(getLaunchOptions().args).toEqual(['--no-sandbox']);
+    expect(getLaunchOptions({ args: [] }).args).toEqual([]);
+
+    process.env.QAW_BROWSER = 'webkit';
+    expect(getLaunchOptions().args).toEqual([]);
   });
 });
