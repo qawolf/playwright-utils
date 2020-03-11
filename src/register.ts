@@ -7,7 +7,7 @@ import { ReplContext } from './repl';
 
 let htmlSelectorRegistered = false;
 
-const getArtifactPath = (): string | null => {
+export const getArtifactPath = (): string | null => {
   let artifactPath = process.env.QAW_ARTIFACT_PATH;
   if (!artifactPath) return null;
 
