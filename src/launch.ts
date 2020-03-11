@@ -38,7 +38,7 @@ export const getLaunchOptions = (
     options.browserName || process.env.QAW_BROWSER,
   );
 
-  let defaultArgs: string[] = [];
+  const defaultArgs: string[] = [];
 
   if (browserName === 'chromium' && platform() === 'linux') {
     // We use --no-sandbox because we cannot change the USER for certain CIs (like GitHub).
