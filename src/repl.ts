@@ -4,7 +4,7 @@ import Debug from 'debug';
 import { EventEmitter } from 'events';
 import { bold } from 'kleur';
 import { start, REPLServer } from 'repl';
-import temp from 'temp'
+import * as tempy from 'tempy'
 import open from 'open'
 
 const debug = Debug('playwright-utils:repl');
@@ -69,7 +69,7 @@ export const repl = (
           'Have you forgotten to pass it to the REPL context or do you have a custom page variable name? ' +
           `Then pass it as a parameter to the '.screenshot myExamplePageVariable' command.`)
       }
-      const path = temp.path({ suffix: '.png' });
+      const path = tempy.file({ extension: 'png' });
       await replServer.context[browserPageContextVariable].screenshot({ path })
       open(path)
       console.log(`File was opened in the editor`);
