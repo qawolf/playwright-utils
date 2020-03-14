@@ -4,6 +4,8 @@ import Debug from 'debug';
 import { EventEmitter } from 'events';
 import { bold } from 'kleur';
 import { start, REPLServer } from 'repl';
+import temp from 'temp'
+import open from 'open'
 
 const debug = Debug('playwright-utils:repl');
 
@@ -53,6 +55,25 @@ export const repl = (
   const replServer = start({
     terminal: true,
     useGlobal: true,
+  });
+
+  replServer.defineCommand('screenshot', {
+    help: 'Takes a screenshot and opens it in the default viewer of the OS',
+    action: async (browserPageContextVariable) => {
+      // Setting it as the function parameter defaults does not work, because it's always defined.
+      if (!browserPageContextVariable) {
+        browserPageContextVariable = "page"
+      }
+      if (!(browserPageContextVariable in replServer.context)) {
+        throw new Error(`No browser instance with the name '${browserPageContextVariable}' existing in the context. ` +
+          'Have you forgotten to pass it to the REPL context or do you have a custom page variable name? ' +
+          `Then pass it as a parameter to the '.screenshot myExamplePageVariable' command.`)
+      }
+      const path = temp.path({ suffix: '.png' });
+      await replServer.context[browserPageContextVariable].screenshot({ path })
+      open(path)
+      console.log(`File was opened in the editor`);
+    }
   });
 
   addAwaitOutsideToReplServer(replServer);
