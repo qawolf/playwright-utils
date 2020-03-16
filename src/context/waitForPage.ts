@@ -3,7 +3,7 @@ import { LifecycleEvent } from 'playwright-core/lib/types';
 import { indexPages, IndexedPage } from './indexPages';
 import { waitFor } from '../waitFor';
 
-interface WaitForPageOptions {
+export interface WaitForPageOptions {
   timeout?: number;
   waitUntil?: LifecycleEvent;
 }

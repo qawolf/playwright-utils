@@ -7,7 +7,7 @@ export { initEvaluateScript } from './page/initEvaluateScript';
 export { interceptConsoleLogs } from './page/interceptConsoleLogs';
 export { saveConsoleLogs } from './page/saveConsoleLogs';
 export { saveState } from './page/saveState';
-export { scroll } from './page/scroll';
+export { scroll, ScrollOptions, ScrollValue } from './page/scroll';
 export { setState } from './page/setState';
 
 // global utils
@@ -18,4 +18,4 @@ export { repl, ReplContext } from './repl';
 export { register } from './register';
 export { waitFor } from './waitFor';
 export { indexPages, IndexedPage } from './context/indexPages';
-export { waitForPage } from './context/waitForPage';
+export { waitForPage, WaitForPageOptions } from './context/waitForPage';

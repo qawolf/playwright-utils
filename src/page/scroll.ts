@@ -1,12 +1,12 @@
 import { ElementHandle, Page } from 'playwright-core';
 import { LifecycleEvent } from 'playwright-core/lib/types';
 
-interface ScrollValue {
+export interface ScrollValue {
   x: number;
   y: number;
 }
 
-interface ScrollOptions extends ScrollValue {
+export interface ScrollOptions extends ScrollValue {
   timeout?: number;
   waitUntil?: LifecycleEvent;
 }
