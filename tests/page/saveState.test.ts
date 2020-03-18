@@ -28,7 +28,7 @@ describe('saveState', () => {
     const page = await browser.newPage();
     await page.goto(TEST_URL);
 
-    await page.context().setCookies([COOKIE]);
+    await page.context().addCookies([COOKIE]);
     await page.evaluate(() => {
       localStorage.setItem('hello', 'world');
       sessionStorage.setItem('in', 'sessionStorage');

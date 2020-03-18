@@ -1,4 +1,4 @@
-import { Page } from 'playwright-core';
+import { Page } from 'playwright';
 import { initEvaluateScript } from './initEvaluateScript';
 import { PlaywrightUtilsWeb } from '../web';
 import { addScript } from '../web/addScript';

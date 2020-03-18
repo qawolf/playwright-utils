@@ -1,4 +1,4 @@
-import { Browser, BrowserContext } from 'playwright-core';
+import { Browser, BrowserContext } from 'playwright';
 import { indexPages, IndexedPage, launch } from '../../src';
 
 describe('indexPages', () => {

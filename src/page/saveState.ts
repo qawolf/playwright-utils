@@ -1,5 +1,5 @@
 import { ensureFile, writeJSON } from 'fs-extra';
-import { Page } from 'playwright-core';
+import { Page } from 'playwright';
 import { NetworkCookie } from 'playwright-core/lib/network';
 
 export interface State {
