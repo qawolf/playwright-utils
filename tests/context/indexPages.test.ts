@@ -1,5 +1,5 @@
 import { Browser, BrowserContext } from 'playwright';
-import { indexPages, IndexedPage, launch } from '../../src';
+import { indexPages, IndexedPage, launch, waitForPage } from '../../src';
 
 describe('indexPages', () => {
   let browser: Browser;
@@ -20,13 +20,13 @@ describe('indexPages', () => {
 
   it('indexes newly created pages', async () => {
     await indexPages(context);
-    const pageOne = await context.newPage();
-    const pageTwo = await context.newPage();
+    await context.newPage();
+    await context.newPage();
 
-    // give time for page event to fire
-    await new Promise(resolve => setTimeout(resolve, 0));
-
+    const pageOne = await waitForPage(context, 0);
     expect((pageOne as IndexedPage).createdIndex).toEqual(0);
+
+    const pageTwo = await waitForPage(context, 1);
     expect((pageTwo as IndexedPage).createdIndex).toEqual(1);
   });
 
@@ -35,7 +35,9 @@ describe('indexPages', () => {
     await context.newPage();
     await context.newPage();
     return indexPages(context).catch(e => {
-      expect(e.message).toEqual('Cannot index pages when >1 exists');
+      expect(e.message).toEqual(
+        'Cannot index pages when more than 1 exist (2)',
+      );
     });
   });
 });
