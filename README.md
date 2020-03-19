@@ -1,6 +1,6 @@
 # playwright-utils
 
-[![npm version](https://badge.fury.io/js/playwright-utils.svg)](https://badge.fury.io/js/playwright-utils)
+[![npm version](https://badge.fury.io/js/playwright-utils.svg)](https://badge.fury.io/js/playwright-utils) ![Unit Tests](https://github.com/qawolf/playwright-utils/workflows/Unit%20Tests/badge.svg)
 
 🛠️ Utilities for playwright.
 
