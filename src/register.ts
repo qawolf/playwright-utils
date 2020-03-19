@@ -3,7 +3,7 @@ import { register as registerHtmlSelector } from 'playwright-html-selector';
 import { basename, join } from 'path';
 import { indexPages } from './context/indexPages';
 import { saveArtifacts } from './context/saveArtifacts';
-import { ReplContext } from './repl';
+import { ReplContext } from './repl/ReplContext';
 
 let htmlSelectorRegistered = false;
 

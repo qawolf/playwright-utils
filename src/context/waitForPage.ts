@@ -1,5 +1,6 @@
 import { BrowserContext } from 'playwright';
 import { LifecycleEvent } from 'playwright-core/lib/types';
+import { isNull } from 'util';
 import { indexPages, IndexedPage } from './indexPages';
 import { waitFor } from '../waitFor';
 
@@ -27,7 +28,9 @@ export const waitForPage = async (
     { timeout: options.timeout || 30000 },
   );
 
-  await page.waitForLoadState({ waitUntil: options.waitUntil || 'load' });
+  if (!isNull(options.waitUntil)) {
+    await page.waitForLoadState({ waitUntil: options.waitUntil || 'load' });
+  }
 
   return page as IndexedPage;
 };

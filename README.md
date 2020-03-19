@@ -68,6 +68,17 @@ await interceptConsoleLogs(page, callback);
 
 Launch the browser based on environment variables. Defaults to `QAW_BROWSER=chromium` and `QAW_HEADLESS=true`.
 
+#### playwright-utils.openScreenshot(page)
+
+- `page` <[Page]> Take a screenshot of this page and open it.
+- returns: <[Promise]<[ChildProcess]>> Promise that resolves the viewer process.
+
+Open a screenshot in the default viewer of the OS.
+
+```js
+await openScreenshot(page);
+```
+
 #### playwright-utils.repl([context])
 
 - `context` <[Object]> Each key of this object is set on the repl.context so it can be accessed.
@@ -78,6 +89,15 @@ Open a Node REPL.
 ```js
 // pass a page so it can be accessed in the REPL
 await repl({ page });
+```
+
+In the repl, type `screenshot [page]` to open a screenshot.
+
+```bash
+# open a screenshot of page 0
+.screenshot
+# open a screenshot of page 1
+.screenshot 1
 ```
 
 #### playwright-utils.saveArtifacts(context, saveDir)
@@ -157,6 +177,7 @@ Stop and wait for all videos started by [saveArtifacts](#playwright-utilssaveart
 [browser]: https://github.com/microsoft/playwright/blob/master/docs/api.md#class-browser 'browser'
 [browsercontext]: https://github.com/microsoft/playwright/blob/master/docs/api.md#class-browsercontext 'BrowserContext'
 [browsertype.launch]: https://github.com/microsoft/playwright/blob/master/docs/api.md#browsertypelaunchoptions 'browserType.launch'
+[childprocess]: https://nodejs.org/api/child_process.html#child_process_class_childprocess 'ChildProcess'
 [function]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function 'Function'
 [json]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON 'JSON'
 [localstorage]: https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage 'localStorage'

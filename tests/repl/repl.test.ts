@@ -1,6 +1,6 @@
 import { mockProcessStdout } from 'jest-mock-process';
 import { REPLServer } from 'repl';
-import { repl as createRepl } from '../src';
+import { repl as createRepl } from '../../src';
 
 const mockedStdout: jest.SpyInstance = mockProcessStdout();
 

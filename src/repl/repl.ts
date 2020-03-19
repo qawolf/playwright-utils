@@ -1,37 +1,14 @@
-import './await-outside';
+import '../await-outside';
 import { addAwaitOutsideToReplServer } from 'await-outside';
 import Debug from 'debug';
-import { EventEmitter } from 'events';
 import { bold } from 'kleur';
 import { start, REPLServer } from 'repl';
+import { ReplContext } from './ReplContext';
+import { addScreenshotCommand } from './addScreenshotCommand';
 
 const debug = Debug('playwright-utils:repl');
 
 export type Callback<S = void, T = void> = (data?: S) => T;
-
-export class ReplContext extends EventEmitter {
-  private static _instance = new ReplContext();
-
-  public static data(): {} {
-    return this.instance()._data;
-  }
-
-  public static instance(): ReplContext {
-    return this._instance;
-  }
-
-  public static set(key: string, value: any): void {
-    const instance = this.instance();
-    instance._data[key] = value;
-    instance.emit('change', instance._data);
-  }
-
-  protected _data: {} = {};
-
-  constructor() {
-    super();
-  }
-}
 
 export const repl = (
   context?: {},
@@ -56,6 +33,8 @@ export const repl = (
   });
 
   addAwaitOutsideToReplServer(replServer);
+
+  addScreenshotCommand(replServer);
 
   const setContext = (): void => {
     const data = ReplContext.data();
