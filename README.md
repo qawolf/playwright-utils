@@ -80,6 +80,15 @@ Open a Node REPL.
 await repl({ page });
 ```
 
+Open a screenshot in the repl by typing `screenshot [page]`.
+
+```bash
+# open a screenshot of page 0
+screenshot
+# open a screenshot of page 1
+screenshot 1
+```
+
 #### playwright-utils.saveArtifacts(context, saveDir)
 
 - `context` <[BrowserContext]> The browser context.

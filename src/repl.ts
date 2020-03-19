@@ -3,9 +3,10 @@ import { addAwaitOutsideToReplServer } from 'await-outside';
 import Debug from 'debug';
 import { EventEmitter } from 'events';
 import { bold } from 'kleur';
+import { BrowserContext } from 'playwright';
 import { start, REPLServer } from 'repl';
-import * as tempy from 'tempy'
-import open from 'open'
+import { waitForPage } from './context/waitForPage';
+import { openScreenshot } from './page/openScreenshot';
 
 const debug = Debug('playwright-utils:repl');
 
@@ -14,7 +15,7 @@ export type Callback<S = void, T = void> = (data?: S) => T;
 export class ReplContext extends EventEmitter {
   private static _instance = new ReplContext();
 
-  public static data(): {} {
+  public static data(): any {
     return this.instance()._data;
   }
 
@@ -34,6 +35,27 @@ export class ReplContext extends EventEmitter {
     super();
   }
 }
+
+export const addScreenshotCommand = (replServer: REPLServer) => {
+  replServer.defineCommand('screenshot', {
+    help: 'Take a screenshot and open it',
+    action: async pageVariable => {
+      let pageIndex = Number(pageVariable);
+      if (isNaN(pageIndex)) pageIndex = 0;
+
+      // There will be a context if playwright-utils.launch or qawolf.launch was used
+      const context = ReplContext.data().context as BrowserContext;
+      if (!context || !context.pages) {
+        throw new Error(
+          `No browser context found. Provide one to the repl({ context })`,
+        );
+      }
+
+      const page = await waitForPage(context, pageIndex, { waitUntil: null });
+      await openScreenshot(page);
+    },
+  });
+};
 
 export const repl = (
   context?: {},
@@ -57,26 +79,9 @@ export const repl = (
     useGlobal: true,
   });
 
-  replServer.defineCommand('screenshot', {
-    help: 'Takes a screenshot and opens it in the default viewer of the OS',
-    action: async (browserPageContextVariable) => {
-      // Setting it as the function parameter defaults does not work, because it's always defined.
-      if (!browserPageContextVariable) {
-        browserPageContextVariable = "page"
-      }
-      if (!(browserPageContextVariable in replServer.context)) {
-        throw new Error(`No browser instance with the name '${browserPageContextVariable}' existing in the context. ` +
-          'Have you forgotten to pass it to the REPL context or do you have a custom page variable name? ' +
-          `Then pass it as a parameter to the '.screenshot myExamplePageVariable' command.`)
-      }
-      const path = tempy.file({ extension: 'png' });
-      await replServer.context[browserPageContextVariable].screenshot({ path })
-      open(path)
-      console.log(`File was opened in the editor`);
-    }
-  });
-
   addAwaitOutsideToReplServer(replServer);
+
+  addScreenshotCommand(replServer);
 
   const setContext = (): void => {
     const data = ReplContext.data();
