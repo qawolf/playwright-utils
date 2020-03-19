@@ -1,4 +1,4 @@
-import { ElementHandle, Page } from 'playwright-core';
+import { ElementHandle, Page } from 'playwright';
 import { LifecycleEvent } from 'playwright-core/lib/types';
 
 export interface ScrollValue {

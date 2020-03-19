@@ -1,5 +1,5 @@
 import { readJSON } from 'fs-extra';
-import { Page } from 'playwright-core';
+import { Page } from 'playwright';
 import { State } from './saveState';
 
 interface SetStorageOptions {
@@ -31,19 +31,24 @@ const setStorage = async ({
 export const setState = async (page: Page, savePath: string): Promise<void> => {
   const state: State = await readJSON(savePath);
 
-  if (state.cookies.length) {
+  if (state.cookies && state.cookies.length) {
     const context = page.context();
-    await context.setCookies(state.cookies);
+    await context.addCookies(state.cookies);
   }
 
-  await setStorage({
-    items: state.localStorage,
-    page,
-    storageType: 'localStorage',
-  });
-  await setStorage({
-    items: state.sessionStorage,
-    page,
-    storageType: 'sessionStorage',
-  });
+  if (state.localStorage) {
+    await setStorage({
+      items: state.localStorage,
+      page,
+      storageType: 'localStorage',
+    });
+  }
+
+  if (state.sessionStorage) {
+    await setStorage({
+      items: state.sessionStorage,
+      page,
+      storageType: 'sessionStorage',
+    });
+  }
 };

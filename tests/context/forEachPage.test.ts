@@ -1,5 +1,5 @@
-import { Page } from 'playwright-core';
-import { forEachPage, launch } from '../../src';
+import { Page } from 'playwright';
+import { forEachPage, launch, waitForPage } from '../../src';
 
 it('runs for existing and new pages', async () => {
   const browser = await launch();
@@ -13,10 +13,10 @@ it('runs for existing and new pages', async () => {
     page.evaluate((index: number) => ((window as any).index = index), index++);
   });
 
+  // index pages before more than one exists
+  const pageOneReady = waitForPage(context, 1);
   const newPage = await context.newPage();
-
-  // give time for page event to fire
-  await new Promise(resolve => setTimeout(resolve, 0));
+  await pageOneReady;
 
   const result = await Promise.all(
     [existingPage, newPage].map(page =>

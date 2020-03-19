@@ -1,5 +1,5 @@
 import Debug from 'debug';
-import { BrowserContext, Page } from 'playwright-core';
+import { BrowserContext, Page } from 'playwright';
 
 const debug = Debug('playwright-utils:indexPages');
 
@@ -22,7 +22,9 @@ export const indexPages = async (context: BrowserContext): Promise<void> => {
 
   const pages = await context.pages();
   if (pages.length > 1) {
-    throw new Error('Cannot index pages when >1 exists');
+    throw new Error(
+      `Cannot index pages when more than 1 exist (${pages.length})`,
+    );
   }
 
   if (pages[0]) {

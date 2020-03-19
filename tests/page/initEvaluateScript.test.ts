@@ -1,5 +1,5 @@
+import { Browser } from 'playwright';
 import { initEvaluateScript, launch } from '../../src';
-import { Browser } from 'playwright-core';
 
 let browser: Browser;
 
