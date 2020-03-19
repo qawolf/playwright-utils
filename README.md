@@ -95,9 +95,9 @@ In the repl, type `screenshot [page]` to open a screenshot.
 
 ```bash
 # open a screenshot of page 0
-screenshot
+.screenshot
 # open a screenshot of page 1
-screenshot 1
+.screenshot 1
 ```
 
 #### playwright-utils.saveArtifacts(context, saveDir)
