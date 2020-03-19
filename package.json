@@ -29,7 +29,7 @@
     "version": "npm run clean && npm run build"
   },
   "peerDependencies": {
-    "playwright": "next"
+    "playwright": "*"
   },
   "dependencies": {
     "await-outside": "^3.0.0",
@@ -37,7 +37,7 @@
     "fs-extra": "^8.1.0",
     "kleur": "^3.0.3",
     "playwright-html-selector": "^0.4.0",
-    "playwright-video": "^0.6.0",
+    "playwright-video": "^0.7.0",
     "open": "^7.0.3",
     "tempy": "^0.5.0",
     "tslib": "^1.11.1"
