@@ -13,12 +13,15 @@ import {
 import { randomString, TEST_URL } from '../utils';
 
 const waitForPath = (dir: string, search: string): Promise<string | null> =>
-  waitFor(async () => {
-    const files = await readdir(dir);
-    const file = files.find(f => f.includes(search));
-    if (file) return join(dir, file);
-    return null;
-  });
+  waitFor(
+    async () => {
+      const files = await readdir(dir);
+      const file = files.find(f => f.includes(search));
+      if (file) return join(dir, file);
+      return null;
+    },
+    { timeout: 60000 },
+  );
 
 describe('saveArtifacts', () => {
   let browser: Browser;
