@@ -18,8 +18,4 @@ export class ReplContext extends EventEmitter {
   }
 
   protected _data: {} = {};
-
-  constructor() {
-    super();
-  }
 }
