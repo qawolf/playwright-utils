@@ -2,7 +2,6 @@ import { REPLServer } from 'repl';
 import { BrowserContext } from 'playwright';
 import { waitForPage } from '../context/waitForPage';
 import { openScreenshot } from '../page/openScreenshot';
-import { ReplContext } from './ReplContext';
 
 export const addScreenshotCommand = (replServer: REPLServer): void => {
   replServer.defineCommand('screenshot', {
@@ -11,11 +10,11 @@ export const addScreenshotCommand = (replServer: REPLServer): void => {
       let pageIndex = Number(pageVariable);
       if (isNaN(pageIndex)) pageIndex = 0;
 
-      // There will be a context if playwright-utils.launch was used
-      const context = ReplContext.data().context as BrowserContext;
+      // register(context) will set the context.context
+      const context = replServer.context.context as BrowserContext;
       if (!context || !context.pages) {
         throw new Error(
-          `No browser context found. Provide it to the "await repl({ context })"`,
+          `No browser context found. Provide it to the repl "await repl({ context })"`,
         );
       }
 
