@@ -2,9 +2,7 @@ import { readFileSync } from 'fs';
 import { Page } from 'playwright';
 import { initEvaluateScript } from '../page/initEvaluateScript';
 
-const scriptPath = require.resolve(
-  'playwright-utils/build/playwrightutils.web.js',
-);
+const scriptPath = require.resolve('../../build/playwrightutils.web.js');
 
 const script = readFileSync(scriptPath, 'utf8').replace(
   'var playwrightutils =',
