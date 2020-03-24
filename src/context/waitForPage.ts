@@ -1,12 +1,11 @@
 import { BrowserContext } from 'playwright';
-import { LifecycleEvent } from 'playwright-core/lib/types';
 import { isNull } from 'util';
 import { indexPages, IndexedPage } from './indexPages';
 import { waitFor } from '../waitFor';
 
 export interface WaitForPageOptions {
   timeout?: number;
-  waitUntil?: LifecycleEvent;
+  waitUntil?: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2';
 }
 
 export const waitForPage = async (
@@ -19,9 +18,9 @@ export const waitForPage = async (
 
   const page = await waitFor(
     async () => {
-      const pages = await context.pages();
+      const pages = context.pages();
       const match = pages.find(
-        page => (page as IndexedPage).createdIndex === index,
+        (page) => (page as IndexedPage).createdIndex === index,
       );
       return match;
     },
@@ -29,7 +28,7 @@ export const waitForPage = async (
   );
 
   if (!isNull(options.waitUntil)) {
-    await page.waitForLoadState({ waitUntil: options.waitUntil || 'load' });
+    await page.waitForLoadState(options.waitUntil || 'load');
   }
 
   return page as IndexedPage;

@@ -16,15 +16,17 @@ const setStorage = async ({
   if (!Object.keys(items).length) return;
 
   await page.evaluate(
-    (items, storageType) => {
+    ({ items, storageType }) => {
       window[storageType].clear();
 
-      Object.keys(items).forEach(key => {
+      Object.keys(items).forEach((key) => {
         window[storageType].setItem(key, items[key]);
       });
     },
-    items,
-    storageType,
+    {
+      items,
+      storageType,
+    },
   );
 };
 

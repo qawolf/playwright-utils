@@ -52,7 +52,7 @@ describe('scroll', () => {
 
     if (getLaunchOptions().browserName === 'webkit') {
       // give webkit cycle to send goto
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 500));
     }
 
     await scroll(page, 'html', { x: 0, y: 200 });
