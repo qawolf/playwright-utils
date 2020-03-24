@@ -21,7 +21,7 @@ export const waitForPage = async (
     async () => {
       const pages = await context.pages();
       const match = pages.find(
-        page => (page as IndexedPage).createdIndex === index,
+        (page) => (page as IndexedPage).createdIndex === index,
       );
       return match;
     },
