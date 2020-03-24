@@ -32,7 +32,6 @@ export const indexPages = async (context: BrowserContext): Promise<void> => {
     (pages[0] as IndexedPage).createdIndex = index++;
   }
 
-  // XXX remove cast after playwright fixes types
   context.on('page', (page: IndexedPage) => {
     debug(`index created page ${index}`);
     page.createdIndex = index++;
