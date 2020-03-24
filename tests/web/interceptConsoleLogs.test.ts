@@ -7,7 +7,7 @@ let page: Page;
 
 const formatArgument = (arg: any, isSelector = false): Promise<any> => {
   return page.evaluate(
-    (arg, isSelector) => {
+    ({ arg, isSelector }) => {
       const web: PlaywrightUtilsWeb = (window as any).playwrightutils;
 
       if (isSelector) {
@@ -15,8 +15,7 @@ const formatArgument = (arg: any, isSelector = false): Promise<any> => {
       }
       return web.formatArgument(arg);
     },
-    arg,
-    isSelector,
+    { arg, isSelector },
   );
 };
 

@@ -30,13 +30,12 @@ export const scroll = async (
 
   try {
     await page.waitForFunction(
-      (element: Element, { x, y }: ScrollValue): boolean => {
+      ({ element, x, y }): boolean => {
         element.scroll(x, y);
         return element.scrollLeft === x && element.scrollTop === y;
       },
+      { element: elementHandle, x, y },
       { polling: 100, timeout: timeout || DEFAULT_TIMEOUT },
-      elementHandle,
-      { x, y },
     );
   } catch (error) {
     const endScrollValue = await getScrollValue(page, elementHandle);

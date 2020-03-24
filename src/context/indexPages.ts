@@ -20,7 +20,7 @@ export const indexPages = async (context: BrowserContext): Promise<void> => {
 
   let index = 0;
 
-  const pages = await context.pages();
+  const pages = context.pages();
   if (pages.length > 1) {
     throw new Error(
       `Cannot index pages when more than 1 exist (${pages.length})`,
@@ -33,9 +33,8 @@ export const indexPages = async (context: BrowserContext): Promise<void> => {
   }
 
   // XXX remove cast after playwright fixes types
-  (context as any).on('page', async event => {
+  context.on('page', (page: IndexedPage) => {
     debug(`index created page ${index}`);
-    const page: IndexedPage = await event.page();
     page.createdIndex = index++;
   });
 };
