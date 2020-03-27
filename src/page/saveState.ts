@@ -1,9 +1,8 @@
 import { ensureFile, writeJSON } from 'fs-extra';
-import { Page } from 'playwright';
-import { NetworkCookie } from 'playwright-core/lib/network';
+import { BrowserContextCookies, Page } from 'playwright';
 
 export interface State {
-  cookies: NetworkCookie[];
+  cookies: BrowserContextCookies[];
   localStorage: object;
   sessionStorage: object;
 }
